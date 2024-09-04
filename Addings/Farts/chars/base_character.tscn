@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1st36ssjj5a5"]
+[gd_scene load_steps=7 format=3 uid="uid://b1st36ssjj5a5"]
 
+[ext_resource type="Script" path="res://Addings/Farts/chars/base_character.gd" id="1_2mv3e"]
 [ext_resource type="Texture2D" uid="uid://crsx4kytjdiad" path="res://Addings/Farts/art/chars/square/base_character.png" id="1_y7w4y"]
 
 [sub_resource type="Animation" id="Animation_2kq5y"]
@@ -45,6 +46,7 @@ _data = {
 
 [node name="BaseCharacter" type="CharacterBody2D"]
 motion_mode = 1
+script = ExtResource("1_2mv3e")
 metadata/_edit_group_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
