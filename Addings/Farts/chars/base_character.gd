@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 func get_input(_delta) -> Vector2:
 	
 	## Arrows
-	var velocity_to:Vector2
+	var velocity_to: Vector2 = Vector2.ZERO
 	if Input.is_action_pressed("left_arrow"):
 		velocity_to += Vector2.LEFT
 	if Input.is_action_pressed("right_arrow"):
