@@ -1,3 +1,7 @@
-[gd_scene format=3 uid="uid://c8cefweylec5b"]
+[gd_scene load_steps=2 format=3 uid="uid://c8cefweylec5b"]
+
+[ext_resource type="PackedScene" uid="uid://b1st36ssjj5a5" path="res://Addings/Farts/chars/base_character.tscn" id="1_xngf3"]
 
 [node name="Farts" type="Node2D"]
+
+[node name="BaseCharacter" parent="." instance=ExtResource("1_xngf3")]
