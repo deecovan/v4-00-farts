@@ -1,7 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8cefweylec5b"]
+[gd_scene load_steps=3 format=3 uid="uid://c8cefweylec5b"]
 
 [ext_resource type="PackedScene" uid="uid://b1st36ssjj5a5" path="res://Addings/Farts/chars/base_character.tscn" id="1_xngf3"]
 
-[node name="Farts" type="Node2D"]
+[sub_resource type="TileSet" id="TileSet_kegr3"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
 
-[node name="BaseCharacter" parent="." instance=ExtResource("1_xngf3")]
+[node name="Farts" type="Node"]
+
+[node name="World" type="Node2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="BaseCharacter" parent="World" instance=ExtResource("1_xngf3")]
+
+[node name="Camera2D" type="Camera2D" parent="World"]
+
+[node name="Statics" type="TileMapLayer" parent="World"]
+tile_set = SubResource("TileSet_kegr3")
