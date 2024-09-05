@@ -9,6 +9,8 @@ func get_input(_delta) -> Vector2:
 	var velocity_to: Vector2 = Vector2.ZERO
 	## Get mouse click and vector
 	velocity_to = get_target_direction(get_current_target())
+	if (target - Vector2i(self.global_position)).length() > range:
+		velocity_to *= shift / speed
 	return velocity_to
 	
 	
@@ -40,5 +42,5 @@ func get_target_direction(target: Vector2) -> Vector2:
 	
 	
 func _input(event) -> void:
-	target = event.position
-	# Mouse in viewport coordinates.
+	if event is InputEventMouseButton:
+		target = event.position
