@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1st36ssjj5a5"]
+[gd_scene load_steps=7 format=3 uid="uid://ni8xdf8rqmxb"]
 
-[ext_resource type="Script" path="res://Addings/Farts/chars/base_npc.gd" id="1_eusnd"]
-[ext_resource type="Texture2D" uid="uid://crsx4kytjdiad" path="res://Addings/Farts/art/chars/square/base_character.png" id="1_y7w4y"]
+[ext_resource type="Script" path="res://Addings/Farts/chars/base_npc.gd" id="1_5vs1q"]
+[ext_resource type="Texture2D" uid="uid://crsx4kytjdiad" path="res://Addings/Farts/art/chars/square/base_character.png" id="2_kncas"]
 
 [sub_resource type="Animation" id="Animation_2kq5y"]
 resource_name = "Idle"
@@ -44,9 +44,9 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_52ajh"]
 
-[node name="BaseCharacter" type="CharacterBody2D"]
+[node name="BaseNPC" type="CharacterBody2D"]
 motion_mode = 1
-script = ExtResource("1_eusnd")
+script = ExtResource("1_5vs1q")
 metadata/_edit_group_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -57,7 +57,7 @@ autoplay = "Idle"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -2)
-texture = ExtResource("1_y7w4y")
+texture = ExtResource("2_kncas")
 hframes = 9
 vframes = 7
 
