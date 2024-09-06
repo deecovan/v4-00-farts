@@ -3,6 +3,7 @@ extends "res://Addings/Farts/chars/base_character.gd"
 
 var tile_size: Vector2
 var target: Vector2
+var camera: Camera2D
 
 
 func _ready() -> void:
@@ -46,5 +47,7 @@ func get_target_direction(targeted: Vector2) -> Vector2:
 	
 	
 func _input(event) -> void:
-	if event is InputEventMouseButton:
-		target = event.position
+	if event is InputEventMouseButton and event.is_pressed():
+		target = event.global_position + camera.global_position - get_viewport().get_visible_rect().get_center()
+		print("get_mouse_position is: ", get_viewport().get_mouse_position())
+		print("event.global_position: ", target)
