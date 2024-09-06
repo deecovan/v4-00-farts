@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 
 # Astar grid
@@ -17,15 +17,15 @@ func _process(_delta: float) -> void:
 
 
 func get_astar(from_position: Vector2, to_position: Vector2) -> Array:
-	var astar_array: Array
 	tilemap_path = astar_grid.get_point_path(
 		pos_to_point(from_position), pos_to_point(to_position)
 		)
-	return astar_array
+	return tilemap_path
 	
 	
 func pos_to_point(pos: Vector2) -> Vector2i:
 	var point: Vector2i
+	pos -= self.global_position
 	point.x = int(pos.x / static_tile_size.x) 
 	point.y = int(pos.y / static_tile_size.y)
 	print("pos_to_point: ", pos, point)
@@ -35,8 +35,8 @@ func pos_to_point(pos: Vector2) -> Vector2i:
 func point_to_pos(point: Vector2) -> Vector2i:
 	var pos: Vector2i
 	var half_tile := static_tile_size / 2
-	pos.x = point.x * static_tile_size.x + half_tile.x
-	pos.y = point.y * static_tile_size.y + half_tile.y
+	pos.x = int(point.x) * static_tile_size.x + half_tile.x
+	pos.y = int(point.y) * static_tile_size.y + half_tile.y
 	print("point_to_pos: ", pos, point)
 	return pos
 	
@@ -56,7 +56,6 @@ func set_astar() -> void:
 	
 
 func get_used_static_cells() -> Array[Vector2i]:
-	var coords: Vector2i
 	var coords_array: Array[Vector2i]
 	var used_cells = static_tilemap_layer.get_used_cells()
 	for x in range(used_cells.front().x, used_cells.back().x):
