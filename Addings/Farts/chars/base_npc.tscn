@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ni8xdf8rqmxb"]
+[gd_scene load_steps=8 format=3 uid="uid://ni8xdf8rqmxb"]
 
 [ext_resource type="Script" path="res://Addings/Farts/chars/base_npc.gd" id="1_5vs1q"]
 [ext_resource type="Texture2D" uid="uid://crsx4kytjdiad" path="res://Addings/Farts/art/chars/square/base_character.png" id="2_kncas"]
+[ext_resource type="Texture2D" uid="uid://cyg73uawp5xj5" path="res://Addings/Farts/art/paths/cross.png" id="3_37icb"]
 
 [sub_resource type="Animation" id="Animation_2kq5y"]
 resource_name = "Idle"
@@ -64,3 +65,7 @@ vframes = 7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_52ajh")
+
+[node name="Cross" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("3_37icb")
