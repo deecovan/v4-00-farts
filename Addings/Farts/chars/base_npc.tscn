@@ -46,7 +46,6 @@ _data = {
 
 [node name="BaseNPC" type="CharacterBody2D"]
 motion_mode = 1
-metadata/_edit_group_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
