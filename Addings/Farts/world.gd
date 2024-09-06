@@ -13,6 +13,4 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("alt_enter"):
-		# DisplayServer.WINDOW_MODE_FULLSCREEN == 4
-		# DisplayServer.WINDOW_MODE_WINDOWED == 0
 		DisplayServer.window_set_mode(4 if (DisplayServer.window_get_mode()!=4) else 0)
