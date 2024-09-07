@@ -1,16 +1,14 @@
 extends Node2D
 
+@export var base_npc_tscn: PackedScene
+@export var base_npc_gd: Script
 
 @onready var astar: Node = $Astar
 @onready var statics: TileMapLayer = $Statics
 @onready var camera: Camera2D = $Camera2D
 
-const base_npc_tscn := "res://Addings/Farts/chars/base_npc.tscn"
-const base_npc_gd := "res://Addings/Farts/chars/base_npc.gd"
-
 func _ready() -> void:
 	## Instantiate NPC's
-	ResourceLoader.load_threaded_request(base_npc_tscn)
 	inst_npcs()
 	
 	astar.global_center = get_viewport().get_visible_rect().get_center()
@@ -22,13 +20,12 @@ func _ready() -> void:
 	init_npcs()
 
 func inst_npcs() -> void:
-	var new_npc_res := ResourceLoader.load_threaded_get(base_npc_tscn)
-	var new_npc = new_npc_res.instantiate()
-	#new_npc.position = Vector2(-1000, -1000)
-	#new_npc.add_to_group("NPC")
-	#new_npc.set_script(base_npc_gd)
-	#add_child(new_npc, true)
-	#var ccc = CharacterBody2D.new()
+	var new_npc = base_npc_tscn.instantiate()
+	new_npc.position = Vector2(-1000, -1000)
+	add_child(new_npc, true)
+	var test = CharacterBody2D.new()
+	new_npc.add_to_group("NPC")
+	new_npc.set_script(base_npc_gd)
 
 
 func init_npcs() -> void:
@@ -40,6 +37,7 @@ func init_npcs() -> void:
 			child.func_get_astar_path = astar.get_astar_path
 			child.func_get_free_static_cells = astar.get_free_static_cells
 			child.global_center = get_viewport().get_visible_rect().get_center()
+			
 
 
 func _process(_delta: float) -> void:
