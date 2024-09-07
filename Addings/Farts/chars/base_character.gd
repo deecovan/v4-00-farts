@@ -3,7 +3,6 @@ extends CharacterBody2D
 @export var moove := 4.0
 @export var speed := 200.0
 @export var shift := 400.0
-@export var rangf := 100.0
 
 
 func _physics_process(delta: float) -> void:
