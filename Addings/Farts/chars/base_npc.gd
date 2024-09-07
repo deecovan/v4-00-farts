@@ -33,7 +33,6 @@ func _input(event) -> void:
 		## Set global target OR push it into targets_array
 		set_current_target(
 			event.global_position 
-			#camera.global_position - global_center
 			)
 
 
@@ -41,6 +40,10 @@ func get_random_position() -> Vector2:
 	var free_cells: Array[Vector2] = func_get_free_static_cells.call()
 	var rand_pos = free_cells.pick_random()
 	return global_center + rand_pos * tile_size + tile_size / 2
+
+
+func set_random_position() -> void:
+	self.global_position = self.get_random_position()
 
 
 func get_input(delta) -> Vector2:
