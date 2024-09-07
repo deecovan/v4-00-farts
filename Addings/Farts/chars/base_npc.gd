@@ -24,16 +24,15 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	## Lerp physics
-	velocity = lerp(velocity, get_input(delta) * speed, dexta * delta)
+	velocity = lerp(velocity, get_input(delta) * speed, delta * dexta)
 	move_and_slide()
 	
-		
-func _input(event) -> void:
-	if event is InputEventMouseButton and event.is_pressed():
-		## Set global target OR push it into targets_array
-		set_current_target(
-			event.global_position 
-			)
+	# Collisions
+	if get_slide_collision_count() > 0:
+		var normal = get_last_slide_collision().get_normal()
+		position +=  normal * dexta * randf_range(-1,1)
+		velocity *= -normal * Vector2(
+			randf_range(-1,1), randf_range(-1,1))
 
 
 func get_random_position() -> Vector2:
@@ -48,7 +47,8 @@ func set_random_position() -> void:
 
 func get_input(delta) -> Vector2:
 	## Get mouse click and vector
-	var velocity_to: Vector2 = global_position.direction_to(get_current_target())
+	var velocity_to: Vector2 = global_position.direction_to(
+		get_current_target())
 	
 	# Speed shift
 	if astar_array.size() > 1:
@@ -65,7 +65,8 @@ func get_input(delta) -> Vector2:
 
 func get_static_astar(targeted: Vector2) -> Array:
 	## Get Astar Statics navigation array from Current position to Target position
-	var targeted_astar_array = func_get_astar_path.call(self.global_position, targeted)
+	var targeted_astar_array = func_get_astar_path.call(
+		self.global_position, targeted)
 	return targeted_astar_array
 
 
