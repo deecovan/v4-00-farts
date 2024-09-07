@@ -1,4 +1,8 @@
-extends "res://Addings/Farts/chars/base_character.gd"
+extends CharacterBody2D
+
+@export var dexta := 5.0
+@export var speed := 200.0
+@export var shift := 400.0
 
 
 var tile_size: Vector2
@@ -18,6 +22,12 @@ func _ready() -> void:
 	## Set initial target from viewport center - World's Vector2(0,0)
 	global_center = get_viewport().get_visible_rect().get_center()
 	target = global_center
+
+
+func _physics_process(delta: float) -> void:
+	## Lerp physics
+	velocity = lerp(velocity, get_input(delta) * speed, dexta * delta)
+	move_and_slide()
 	
 		
 func _input(event) -> void:
