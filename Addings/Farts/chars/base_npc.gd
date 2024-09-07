@@ -16,10 +16,7 @@ var target: Vector2
 var astar_array: Array
 var timer: float = 0.0
 
-@onready var cross = $Cross
-
 func _ready() -> void:
-	print(name)
 	## Set initial target from viewport center - World's Vector2(0,0)
 	global_center = get_viewport().get_visible_rect().get_center()
 	target = global_center
@@ -87,5 +84,5 @@ func get_current_target():
 	## Get target via get_current_star
 	if astar_array.size() > 0:
 		target = get_current_star()
-	cross.global_position = target
+	$Cross.global_position = target
 	return target
