@@ -45,6 +45,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_52ajh"]
 
 [node name="BaseCharacter" type="CharacterBody2D"]
+modulate = Color(0, 1, 1, 1)
 motion_mode = 1
 script = ExtResource("1_eusnd")
 metadata/_edit_group_ = true

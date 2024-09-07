@@ -11,8 +11,9 @@ func _ready() -> void:
 	base_npc.tile_size = statics.tile_set.tile_size
 	base_npc.camera = camera
 	base_npc.func_get_astar_path = astar.get_astar_path
-	astar.global_center = get_viewport().get_visible_rect().get_center()
+	base_npc.func_get_free_static_cells = astar.get_free_static_cells
 	base_npc.global_center = get_viewport().get_visible_rect().get_center()
+	astar.global_center = get_viewport().get_visible_rect().get_center()
 	astar.static_tilemap_layer = statics
 	astar.static_tile_size = statics.tile_set.tile_size
 	astar.set_astar()

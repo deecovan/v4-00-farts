@@ -6,6 +6,8 @@ extends Node2D
 var static_tilemap_layer: TileMapLayer
 var static_tile_size: Vector2
 var global_center: Vector2
+var obst_static_cells: Array[Vector2]
+var free_static_cells: Array[Vector2]
 
 
 func set_astar() -> void:
@@ -44,12 +46,13 @@ func get_astar_path(from_position, to_position) -> Array:
 ## Find obstacles via get_collision_polygons_count for each tile
 # Because do not use custom data and other monkeyshit
 func get_used_static_cells() -> Array[Vector2]:
-	var coords_array: Array[Vector2]
-	var used_cells = static_tilemap_layer.get_used_cells()
+	var obst_static_cells_array: Array[Vector2]
+	var free_static_cells_array: Array[Vector2]
+	var all_cells = static_tilemap_layer.get_used_cells()
 	# Find corners
 	var ax := []
 	var ay := []
-	for ac in used_cells:
+	for ac in all_cells:
 		ax.append(ac.x)
 		ay.append(ac.y)
 	# Iterate and find obstacles
@@ -57,7 +60,14 @@ func get_used_static_cells() -> Array[Vector2]:
 		for y in range(ay.min(), ay.max()):
 			var ctdata := static_tilemap_layer.get_cell_tile_data(Vector2(x, y))
 			if ctdata.get_collision_polygons_count(0) > 0:
-				coords_array.append((Vector2(x, y)))
+				obst_static_cells_array.append(Vector2(x, y))
+			else:
+				free_static_cells_array.append(Vector2(x, y))
 	#Test this sht
 	#print(coords_array)
-	return coords_array
+	obst_static_cells = obst_static_cells_array
+	free_static_cells = free_static_cells_array
+	return obst_static_cells_array
+	
+func get_free_static_cells() -> Array[Vector2]:
+	return free_static_cells

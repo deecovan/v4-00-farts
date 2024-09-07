@@ -1,13 +1,13 @@
 extends CharacterBody2D
 
-@export var moove := 4.0
+@export var dexta := 5.0
 @export var speed := 200.0
 @export var shift := 400.0
 
 
 func _physics_process(delta: float) -> void:
 	## Lerp physics
-	velocity = lerp(velocity, get_input(delta) * speed, moove * delta)
+	velocity = lerp(velocity, get_input(delta) * speed, dexta * delta)
 	move_and_slide()
 
 
