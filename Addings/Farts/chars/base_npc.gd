@@ -19,6 +19,7 @@ var timer: float = 0.0
 @onready var cross = $Cross
 
 func _ready() -> void:
+	print(name)
 	## Set initial target from viewport center - World's Vector2(0,0)
 	global_center = get_viewport().get_visible_rect().get_center()
 	target = global_center

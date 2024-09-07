@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://c8cefweylec5b"]
+[gd_scene load_steps=9 format=4 uid="uid://c8cefweylec5b"]
 
 [ext_resource type="Script" path="res://Addings/Farts/world.gd" id="1_nebxg"]
 [ext_resource type="Texture2D" uid="uid://cb4hud1eokmbi" path="res://Addings/Farts/art/static/squares.png" id="2_iqj61"]
 [ext_resource type="PackedScene" uid="uid://ni8xdf8rqmxb" path="res://Addings/Farts/chars/base_npc.tscn" id="2_q0p7c"]
+[ext_resource type="Script" path="res://Addings/Farts/chars/base_npc.gd" id="4_jdka1"]
 [ext_resource type="PackedScene" uid="uid://b28mcglj74pf3" path="res://Addings/Astar/Astar.tscn" id="4_vi8pi"]
+[ext_resource type="Script" path="res://Addings/Astar/astar.gd" id="5_jrhdq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s75vj"]
 texture = ExtResource("2_iqj61")
@@ -32,7 +34,9 @@ tile_map_data = PackedByteArray("AAD2//r/AAABAAEAAAD2//v/AAABAAEAAAD2//z/AAABAAE
 tile_set = SubResource("TileSet_kegr3")
 
 [node name="BaseNPC" parent="World" groups=["NPC"] instance=ExtResource("2_q0p7c")]
+script = ExtResource("4_jdka1")
 
 [node name="Camera2D" type="Camera2D" parent="World"]
 
 [node name="Astar" parent="World" instance=ExtResource("4_vi8pi")]
+script = ExtResource("5_jrhdq")
