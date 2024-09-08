@@ -9,17 +9,10 @@ var tile_size: Vector2
 var camera: Camera2D
 var func_get_astar_path: Callable
 var func_get_free_static_cells: Callable
-var global_center: Vector2
-
-
-var target: Vector2
 var astar_array: Array
 var timer: float = 0.0
-
-func _ready() -> void:
-	## Set initial target from viewport center - World's Vector2(0,0)
-	global_center = get_viewport().get_visible_rect().get_center()
-	target = global_center
+var global_center : Vector2
+var target : Vector2
 
 
 func _physics_process(delta: float) -> void:

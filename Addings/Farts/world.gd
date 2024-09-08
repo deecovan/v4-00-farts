@@ -9,7 +9,7 @@ extends Node2D
 
 func _ready() -> void:
 	## Instantiate NPC's
-	inst_npcs()
+	inst_npcs(4)
 	
 	astar.global_center = get_viewport().get_visible_rect().get_center()
 	astar.static_tilemap_layer = statics
@@ -19,14 +19,16 @@ func _ready() -> void:
 	## Init all in group NPC's
 	init_npcs()
 
-func inst_npcs() -> void:
-	var new_npc = base_npc_tscn.instantiate()
-	new_npc.position = Vector2(
-		-1000 - randi_range(100,1000), 
-		-1000 - randi_range(100,1000))
-	add_child(new_npc, true)
-	new_npc.add_to_group("NPC")
-	new_npc.set_script(base_npc_gd)
+func inst_npcs(q:int) -> void:
+	for i in q:
+		var new_npc = base_npc_tscn.instantiate()
+		new_npc.position = Vector2(
+			-1000 - randi_range(100,1000), 
+			-1000 - randi_range(100,1000))
+		add_child(new_npc, true)
+		new_npc.add_to_group("NPC")
+		new_npc.set_script(base_npc_gd)
+		new_npc.set_physics_process(true)
 
 
 func init_npcs() -> void:
