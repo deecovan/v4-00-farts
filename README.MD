@@ -2,4 +2,5 @@
 ## Added Project's branch 13-add-farts-and-its-beheivours 
 - Deployed BaseNPC
 - Fixed most Position's issues on enter Fullscreen or on Resize window
-- Link all scripts under the root!!!
+- Working NPC's movement
+- Working NPC's instantiation
