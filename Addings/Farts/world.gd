@@ -33,13 +33,12 @@ func inst_npcs(q:int) -> void:
 
 func init_npcs() -> void:
 	for child in get_children():
-		if child.is_in_group("NPC"):
+		if child.is_in_group("NPC") and child.timer == 0.0:
 			child.tile_size = statics.tile_set.tile_size
 			child.camera = camera
 			child.func_get_astar_path = astar.get_astar_path
 			child.func_get_free_static_cells = astar.get_free_static_cells
 			child.global_center = get_viewport().get_visible_rect().get_center()
-			
 			child.set_random_position()
 			child.set_current_target(child.get_random_position())
 			print(child.get_instance_id(), child.global_position, child.target)
@@ -47,4 +46,8 @@ func init_npcs() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("alt_enter"):
-		DisplayServer.window_set_mode(4 if (DisplayServer.window_get_mode()!=4) else 0)
+		DisplayServer.window_set_mode(4 if (
+			DisplayServer.window_get_mode()!=4) else 0)
+	if Input.is_action_just_pressed("space"):
+		inst_npcs(1)
+		init_npcs()

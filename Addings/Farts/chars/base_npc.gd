@@ -14,19 +14,46 @@ var timer: float = 0.0
 var global_center : Vector2
 var target : Vector2
 
+func _init() -> void:
+	$Cross.default_color = Color(
+		randf_range(0.75,1),
+		randf_range(0.25,0.75),
+		randf_range(0.25,0.75),)
+	print(name, " ready")
 
 func _physics_process(delta: float) -> void:
 	## Lerp physics
 	velocity = lerp(velocity, get_input(delta) * speed, delta * dexta)
 	move_and_slide()
 	
+func get_input(delta) -> Vector2:
+	timer += delta
+	## Get mouse click and vector
+	var velocity_to: Vector2 = global_position.direction_to(
+		get_current_target())
+	
+	# Speed shift
+	if astar_array.size() > 1:
+		velocity_to *= shift / speed
+	
 	# Collisions
 	if get_slide_collision_count() > 0:
 		var normal = get_last_slide_collision().get_normal()
-		position +=  normal * dexta * randf_range(-1,1)
-		velocity *= -normal * Vector2(
-			randf_range(-1,1), randf_range(-1,1))
-
+		position +=  normal * dexta + Vector2(
+			randi_range(-8,8),randi_range(-8,8))
+		#velocity *= -normal * Vector2(
+			#randf_range(-1,1), randf_range(-1,1))
+		velocity = Vector2.ZERO
+			
+	## If state == stuck
+	## If state == iddle
+	if velocity.length() < 100 and timer > 3:
+		timer = 0.0
+		while not set_current_target(get_random_position()):
+			print("%s can't move to %s, re-target" % [name, target])
+		print(name, " mooving to ", target)
+		
+	return velocity_to
 
 func get_random_position() -> Vector2:
 	var free_cells: Array[Vector2] = func_get_free_static_cells.call()
@@ -36,24 +63,6 @@ func get_random_position() -> Vector2:
 
 func set_random_position() -> void:
 	self.global_position = self.get_random_position()
-
-
-func get_input(delta) -> Vector2:
-	## Get mouse click and vector
-	var velocity_to: Vector2 = global_position.direction_to(
-		get_current_target())
-	
-	# Speed shift
-	if astar_array.size() > 1:
-		velocity_to *= shift / speed
-	
-	## If state == iddle
-	timer += delta
-	if velocity.length() < 10 and timer > 1:
-		while not set_current_target(get_random_position()):
-			print("Cant move to ", target)
-		timer = 0.0
-	return velocity_to
 
 
 func get_static_astar(targeted: Vector2) -> Array:
