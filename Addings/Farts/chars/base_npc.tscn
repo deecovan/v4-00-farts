@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://ni8xdf8rqmxb"]
+[gd_scene load_steps=6 format=3 uid="uid://ni8xdf8rqmxb"]
 
 [ext_resource type="Texture2D" uid="uid://crsx4kytjdiad" path="res://Addings/Farts/art/chars/square/base_character.png" id="2_kncas"]
-[ext_resource type="Texture2D" uid="uid://cyg73uawp5xj5" path="res://Addings/Farts/art/paths/cross.png" id="2_r7qml"]
 
 [sub_resource type="Animation" id="Animation_2kq5y"]
 resource_name = "Idle"
@@ -42,7 +41,8 @@ _data = {
 "RESET": SubResource("Animation_af5p6")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_52ajh"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_b26gw"]
+radius = 15.0
 
 [node name="BaseNPC" type="CharacterBody2D"]
 motion_mode = 1
@@ -60,9 +60,9 @@ hframes = 9
 vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(1.5, 1.5)
-shape = SubResource("CircleShape2D_52ajh")
+shape = SubResource("CircleShape2D_b26gw")
 
-[node name="Cross" type="Sprite2D" parent="."]
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_r7qml")
+[node name="Cross" type="Line2D" parent="."]
+points = PackedVector2Array(0, -15, 0, 0.0426102, 0, 15, 0, 0, -15, 0, 15, 0)
+width = 4.0
+default_color = Color(1, 0, 0, 1)
