@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://crsx4kytjdiad" path="res://Addings/Farts/art/chars/square/base_character.png" id="2_kncas"]
 [ext_resource type="Resource" uid="uid://br6ou5fblkmy6" path="res://Addings/Farts/bts/BTblackboard.tres" id="3_x6n50"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_selector.gd" id="4_mt5td"]
-[ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_1.gd" id="5_nwypt"]
+[ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_init.gd" id="4_pg6d5"]
+[ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_test.gd" id="5_nwypt"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_root.gd" id="5_w0a14"]
-[ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_2.gd" id="6_k7sfb"]
 
 [sub_resource type="Animation" id="Animation_2kq5y"]
 resource_name = "Idle"
@@ -72,17 +72,26 @@ points = PackedVector2Array(0, -15, 0, 0.0426102, 0, 15, 0, 0, -15, 0, 15, 0)
 width = 4.0
 default_color = Color(1, 0, 0, 1)
 
-[node name="BTRoot" type="Node" parent="." node_paths=PackedStringArray("actor")]
+[node name="BTInit" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("5_w0a14")
 autostart = true
 actor = NodePath("..")
 blackboard = ExtResource("3_x6n50")
 
-[node name="BTSelector" type="Node" parent="BTRoot"]
+[node name="BTLeafInit" type="Node" parent="BTInit"]
+script = ExtResource("4_pg6d5")
+
+[node name="BTTest" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("5_w0a14")
+autostart = true
+actor = NodePath("..")
+blackboard = ExtResource("3_x6n50")
+
+[node name="BTSelectorTest" type="Node" parent="BTTest"]
 script = ExtResource("4_mt5td")
 
-[node name="BTLeaf1" type="Node" parent="BTRoot/BTSelector"]
+[node name="BTLeafTest1" type="Node" parent="BTTest/BTSelectorTest"]
 script = ExtResource("5_nwypt")
 
-[node name="BTLeaf2" type="Node" parent="BTRoot/BTSelector"]
-script = ExtResource("6_k7sfb")
+[node name="BTLeafTest2" type="Node" parent="BTTest/BTSelectorTest"]
+script = ExtResource("5_nwypt")
