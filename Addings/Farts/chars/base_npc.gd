@@ -17,10 +17,7 @@ var target : Vector2
 
 
 func _init() -> void:
-	$Cross.default_color = Color(
-		randf_range(0.75,1),
-		randf_range(0.25,0.75),
-		randf_range(0.25,0.75),)
+	$Cross.default_color = Color(randf(),randf(),randf())
 	print(name, " ready")
 
 
