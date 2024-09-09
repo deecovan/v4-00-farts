@@ -10,8 +10,12 @@ extends FSMState
 
 
 ## Executes after the state is entered.
-func _on_enter(_actor: Node, _blackboard: Blackboard) -> void:
-	pass
+func _on_enter(actor: Node, _blackboard: Blackboard) -> void:
+	#### Continue from BaseNPC script	
+	if actor.velocity.length() < 200 and actor.timer > 3:
+		while not actor.set_current_target(actor.get_random_position()):
+			print("%s can't move to %s, re-target" % [actor.name, actor.target])
+		print(actor.name, " Moving to ", actor.target)
 
 
 ## Executes every process call, if the state is active.

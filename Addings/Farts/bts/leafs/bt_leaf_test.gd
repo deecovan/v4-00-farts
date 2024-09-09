@@ -17,7 +17,7 @@ func tick(delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 		return BTStatus.FAILURE
 		
 	## Else continue test one of two random leafs
-	if timer > 1: # to do nott overheat CPU
+	if timer > 2:
 		timer = 0.0
 		start_actor_logic(timer, actor)
 	
@@ -27,10 +27,5 @@ func tick(delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	return BTStatus.SUCCESS
 	
 	
-func start_actor_logic(timer: float, actor: Node) -> void:
-	#### Continue from BaseNPC script	
-	if actor.velocity.length() < 200 and actor.timer > 5:
-		actor.timer = 0.0
-		while not actor.set_current_target(actor.get_random_position()):
-			print("%s can't move to %s, re-target" % [actor.name, actor.target])
-		print("From: ", name, " ", actor.name, " Moving to ", actor.target)
+func start_actor_logic(_timer: float, _actor: Node) -> void:
+	pass ## test

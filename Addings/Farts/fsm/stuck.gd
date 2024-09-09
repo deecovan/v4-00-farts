@@ -10,8 +10,8 @@ extends FSMState
 
 
 ## Executes after the state is entered.
-func _on_enter(_actor: Node, _blackboard: Blackboard) -> void:
-	pass
+func _on_enter(actor: Node, _blackboard: Blackboard) -> void:
+	print ("Actor: ", actor.name, " STUCK!!! ", actor.timer)
 
 
 ## Executes every process call, if the state is active.
