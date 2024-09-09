@@ -47,8 +47,6 @@ func get_input(delta) -> Vector2:
 		var normal = get_last_slide_collision().get_normal()
 		position +=  normal * dexta + Vector2(
 			randi_range(-8,8),randi_range(-8,8))
-		#velocity *= -normal * Vector2(
-			#randf_range(-1,1), randf_range(-1,1))
 		velocity = Vector2.ZERO
 
 
@@ -77,17 +75,13 @@ func get_input(delta) -> Vector2:
 	## ---> State Moving to target
 	
 	## Stuck/Idle -> Moving
-	if velocity.length() < 100 and timer > 3:
-		timer = 0.0
-		while not set_current_target(get_random_position()):
-			print("%s can't move to %s, re-target" % [name, target])
-		
-		print(name, " Moving to ", target)
+	#### continue to BTLeafTest script
 		
 	return velocity_to
 
 
 func get_random_position() -> Vector2:
+	randomize()
 	var free_cells: Array[Vector2] = func_get_free_static_cells.call()
 	var rand_pos = free_cells.pick_random()
 	return global_center + rand_pos * tile_size + tile_size / 2
