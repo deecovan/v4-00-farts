@@ -17,7 +17,7 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 
 ## Evaluates true, if the transition conditions are met.
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
-	if actor.velocity.length() < actor.speed / 2 and actor.timer > 6:
+	if actor.velocity.length() < actor.speed / 2 and actor.timer > 6 - randf()*3:
 		#print(actor.name, " IdleToMove now: ", actor.timer)
 		return true
 	return false
