@@ -17,8 +17,13 @@ var target : Vector2
 
 
 func _init() -> void:
-	$Cross.default_color = Color(randf(),randf(),randf())
+	$Cross.default_color = pick_random_color()
 	print(name, " ready")
+
+
+func pick_random_color() -> Color:
+	var rv = Vector3(randf(),randf(),randf()).normalized()
+	return Color(rv.x, rv.y, rv.z)
 
 
 func _physics_process(delta: float) -> void:
