@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ni8xdf8rqmxb"]
+[gd_scene load_steps=22 format=3 uid="uid://ni8xdf8rqmxb"]
 
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="2_em1tw"]
 [ext_resource type="Texture2D" uid="uid://crsx4kytjdiad" path="res://Addings/Farts/art/chars/square/base_character.png" id="2_kncas"]
@@ -11,9 +11,12 @@
 [ext_resource type="Script" path="res://Addings/Farts/fsm/move.gd" id="9_rfftv"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/idle_to_move.gd" id="10_0mkst"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/stuck.gd" id="10_s57x2"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state_integrated_bt.gd" id="11_sbyhp"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_idle.gd" id="12_uf31i"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_stuck.gd" id="13_a13s7"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/stuck_to_idle.gd" id="16_lujs4"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_random_selector.gd" id="16_nwklx"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_leaf.gd" id="17_l7784"]
 
 [sub_resource type="Animation" id="Animation_2kq5y"]
 resource_name = "Idle"
@@ -135,3 +138,18 @@ script = ExtResource("10_s57x2")
 [node name="StuckToIdle" type="Node" parent="FSM/Stuck" node_paths=PackedStringArray("next_state")]
 script = ExtResource("16_lujs4")
 next_state = NodePath("../../Idle")
+
+[node name="FSMStateIntegratedBT" type="Node" parent="FSM"]
+script = ExtResource("11_sbyhp")
+
+[node name="BTRoot" type="Node" parent="FSM/FSMStateIntegratedBT"]
+script = ExtResource("5_w0a14")
+
+[node name="BTRandomSelector" type="Node" parent="FSM/FSMStateIntegratedBT/BTRoot"]
+script = ExtResource("16_nwklx")
+
+[node name="BTLeaf1" type="Node" parent="FSM/FSMStateIntegratedBT/BTRoot/BTRandomSelector"]
+script = ExtResource("17_l7784")
+
+[node name="BTLeaf2" type="Node" parent="FSM/FSMStateIntegratedBT/BTRoot/BTRandomSelector"]
+script = ExtResource("17_l7784")
