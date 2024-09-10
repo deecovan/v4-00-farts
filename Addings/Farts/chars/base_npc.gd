@@ -47,7 +47,7 @@ func get_input(delta) -> Vector2:
 	if astar_array.size() > 1:
 		velocity_to *= shift / speed
 		
-	# Collisions
+	# Collisions !!!HERE because FSM canr process slide_collisions
 	if get_slide_collision_count() > 0:
 		var normal = get_last_slide_collision().get_normal()
 		position +=  normal * dexta + Vector2(
