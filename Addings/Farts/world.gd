@@ -19,6 +19,8 @@ func _ready() -> void:
 	## Init all in group NPC's
 	init_npcs()
 
+
+## Instatiate NPCs
 func inst_npcs(q:int) -> void:
 	for i in q:
 		var new_npc = base_npc_tscn.instantiate()
@@ -30,15 +32,20 @@ func inst_npcs(q:int) -> void:
 		new_npc.set_physics_process(true)
 
 
+## Initialize NPCs
 func init_npcs() -> void:
 	for child in get_children():
 		## Check is it new NPC
 		if child.is_in_group("NPC") and child.timer == 0.0:
+			## Link variables and functions
 			child.tile_size = statics.tile_set.tile_size
 			child.camera = camera
 			child.func_get_astar_path = astar.get_astar_path
 			child.func_get_free_static_cells = astar.get_free_static_cells
 			child.global_center = get_viewport().get_visible_rect().get_center()
+			## Start FSM 
+			child.state_machine = child.find_child("FSM")
+			child.state_machine.start()
 			## Randomise position and target
 			child.set_random_position()
 			child.set_current_target(child.get_random_position())
