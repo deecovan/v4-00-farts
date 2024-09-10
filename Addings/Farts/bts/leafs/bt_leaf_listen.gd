@@ -32,8 +32,7 @@ func tick(delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	blackboard.set_value("bb_tick", bb_tick)
 	return BTStatus.SUCCESS
 	
+	
 ## Working for each 1 sec (2 leafs in 2 seconds)
-func start_actor_logic(_timer: float, _actor: Node, _blackboard: Blackboard) -> void:
-	print ("BB Tick: ", bb_tick)
-	bb_tick += 1
-	pass 
+func start_actor_logic(_timer: float, actor: Node, _blackboard: Blackboard) -> void:
+	print (actor.name, " is listening...")
