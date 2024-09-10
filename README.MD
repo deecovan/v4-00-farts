@@ -14,3 +14,4 @@
 	- Use reset_to_idle method in NPCs with forced Timer and State
 	- Link FSM into NPCs via child.state_machine child.find_child(FSM)
 - Start deploy BT's with Speakers/Listeners
+	- Deploy FSMBT Enter, Speak-Listen and Exit
