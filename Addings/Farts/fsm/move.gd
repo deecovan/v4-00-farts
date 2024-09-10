@@ -16,10 +16,11 @@ func _on_enter(actor: Node, _blackboard: Blackboard) -> void:
 		while not actor.set_current_target(actor.get_random_position()):
 			print("%s can't move to %s, re-target" % [actor.name, actor.target])
 		print(actor.name, " Moving to ", actor.target)
+		actor.timer = 0.0
 
 
 ## Executes every process call, if the state is active.
-func _on_update(_delta: float, actor: Node, _blackboard: Blackboard) -> void:
+func _on_update(_delta: float, _actor: Node, _blackboard: Blackboard) -> void:
 	pass
 
 

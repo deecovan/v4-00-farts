@@ -20,8 +20,8 @@ func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
 	if (actor.velocity.length() < actor.speed / 2
 		and actor.astar_array.size() <= 1
 		):
-		print(actor.name, " MoveToIdle now: ", actor.timer)
-		actor.timer = 0.0
+		print(actor.name, " MoveToIdle", 
+		": now" if int(actor.timer) == 0 else ": %s" % int(actor.timer))
 		return true
 	return false
 

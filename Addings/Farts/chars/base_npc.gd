@@ -125,7 +125,9 @@ func get_current_target():
 	return target
 	
 	
-func reset_to_idle() -> void:
-	timer = 0.0
+func reset_to_idle(from_timer: float = 3.0) -> void:
+	## Force start timer
+	timer = from_timer
 	target = global_position
 	astar_array = []
+	state_machine.change_state(state_machine.states[0])
