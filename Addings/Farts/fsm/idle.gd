@@ -13,7 +13,7 @@ extends FSMState
 func _on_enter(actor: Node, _blackboard: Blackboard) -> void:
 	## Idle State starts timer
 	if "timer" in actor:
-		actor.reset_to_idle()
+		actor.timer = 0.0
 
 ## Executes every process call, if the state is active.
 func _on_update(_delta: float, _actor: Node, _blackboard: Blackboard) -> void:

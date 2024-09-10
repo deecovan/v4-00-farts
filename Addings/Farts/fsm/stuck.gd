@@ -9,7 +9,7 @@ extends FSMState
 ## _on_exit[/code] methods when extending the node's script.
 
 
-## Executes after the state is entered.
+## Just transit to the Idle state to reset actor's variables 
 func _on_enter(actor: Node, _blackboard: Blackboard) -> void:
 	print ("Actor: ", actor.name, " STUCK!!! ", actor.timer)
 

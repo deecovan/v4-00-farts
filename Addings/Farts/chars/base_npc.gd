@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 
 @export var dexta := 4.0
-@export var speed := 200.0
-@export var shift := 400.0
+@export var speed := 200.0 * 50 /Engine.physics_ticks_per_second
+@export var shift := 400.0 * 50 /Engine.physics_ticks_per_second
 
 
 var tile_size: Vector2
@@ -27,30 +27,30 @@ func pick_random_color() -> Color:
 
 
 func _physics_process(delta: float) -> void:
-	## Lerp physics
+	## Move
 	velocity = lerp(velocity, get_input(delta) * speed, delta * dexta)
-	if velocity.length() < speed / (dexta * 2):
+	## Stop
+	if velocity.length() < speed / dexta and astar_array.size() < 1:
 		velocity = Vector2.ZERO
 	move_and_slide()
 	
-	
 func get_input(delta) -> Vector2:
 	timer += delta
-	## Get mouse click and vector
+	## Get target and direction
 	var velocity_to: Vector2 = global_position.direction_to(
 		get_current_target())
 	
 	# Speed shift
 	if astar_array.size() > 1:
 		velocity_to *= shift / speed
-	
+		
 	# Collisions
 	if get_slide_collision_count() > 0:
 		var normal = get_last_slide_collision().get_normal()
 		position +=  normal * dexta + Vector2(
 			randi_range(-8,8),randi_range(-8,8))
 		velocity = Vector2.ZERO
-
+		reset_to_idle()
 
 	## If State == * and near is another Speaking
 	## --> State Ignore -> State Moving
