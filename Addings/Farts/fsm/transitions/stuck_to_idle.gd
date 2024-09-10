@@ -17,13 +17,10 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 
 ## Evaluates true, if the transition conditions are met.
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
-	if (actor.velocity.length() < actor.speed / 2
-		and actor.astar_array.size() <= 1
-		):
-		print(actor.name, " MoveToIdle now: ", actor.timer)
-		actor.timer = 0.0
-		return true
-	return false
+	#print(actor.name, " StuckToMove now: ", actor.timer)
+	print(actor.name, 
+	" StuckToIdle now: ", actor.timer)
+	return true
 
 
 func is_valid_event(current_event: String) -> bool:

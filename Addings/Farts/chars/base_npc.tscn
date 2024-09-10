@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://Addings/Farts/fsm/stuck.gd" id="10_s57x2"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_idle.gd" id="12_uf31i"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_stuck.gd" id="13_a13s7"]
-[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/stuck_to_move.gd" id="14_l0lso"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/stuck_to_idle.gd" id="16_lujs4"]
 
 [sub_resource type="Animation" id="Animation_2kq5y"]
 resource_name = "Idle"
@@ -137,6 +137,6 @@ next_state = NodePath("../../Stuck")
 [node name="Stuck" type="Node" parent="FSM"]
 script = ExtResource("10_s57x2")
 
-[node name="StuckToMove" type="Node" parent="FSM/Stuck" node_paths=PackedStringArray("next_state")]
-script = ExtResource("14_l0lso")
-next_state = NodePath("../../Move")
+[node name="StuckToIdle" type="Node" parent="FSM/Stuck" node_paths=PackedStringArray("next_state")]
+script = ExtResource("16_lujs4")
+next_state = NodePath("../../Idle")

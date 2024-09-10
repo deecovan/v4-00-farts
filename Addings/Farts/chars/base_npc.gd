@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-@export var dexta := 5.0
+@export var dexta := 4.0
 @export var speed := 200.0
 @export var shift := 400.0
 
@@ -29,6 +29,8 @@ func pick_random_color() -> Color:
 func _physics_process(delta: float) -> void:
 	## Lerp physics
 	velocity = lerp(velocity, get_input(delta) * speed, delta * dexta)
+	if velocity.length() < speed / (dexta * 2):
+		velocity = Vector2.ZERO
 	move_and_slide()
 	
 	
@@ -118,3 +120,9 @@ func get_current_target():
 		target = get_current_star()
 	$Cross.global_position = target
 	return target
+	
+	
+func reset_to_idle() -> void:
+	timer = 0.0
+	target = global_position
+	astar_array = []

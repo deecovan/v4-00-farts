@@ -17,7 +17,7 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 
 ## Evaluates true, if the transition conditions are met.
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
-	if actor.timer > 9:
+	if actor.timer > 6:
 		#print(actor.name, " MoveToStuck now: ", actor.timer)
 		return true
 	return false
