@@ -21,7 +21,7 @@ func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
 		and actor.timer > 6 - randf() * 3
 		):
 		## goes to Move State after 3..6s in Idle State
-		print(actor.name, " IdleToMove now: ", int(actor.timer))
+		#print(actor.name, " IdleToMove now: ", int(actor.timer))
 		return true
 	return false
 

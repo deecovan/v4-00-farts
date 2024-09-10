@@ -41,18 +41,19 @@ func get_input(delta) -> Vector2:
 	timer += delta
 	## Get target and direction
 	var velocity_to: Vector2 = global_position.direction_to(
-		get_current_target())
+		get_current_target()).normalized()
 	
 	# Speed shift
 	if astar_array.size() > 1:
 		velocity_to *= shift / speed
 		
-	# Collisions !!!HERE because FSM canr process slide_collisions
+	# Collisions !!!HERE because FSM cant process slide_collisions
 	if get_slide_collision_count() > 0:
 		var normal = get_last_slide_collision().get_normal()
 		position +=  normal * dexta + Vector2(
 			randi_range(-8,8),randi_range(-8,8))
 		velocity = Vector2.ZERO
+		#print("Boom! ", name, " at ", position)
 		reset_to_idle()
 
 	## If State == * and near is another Speaking
