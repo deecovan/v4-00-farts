@@ -15,7 +15,7 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 	pass
 
 
-## Evaluates true, if the transition conditions are met.
+## Just transit to the Idle state to reset actor's variables 
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
 	#print(actor.name, " StuckToMove now: ", actor.timer)
 	print(actor.name, 

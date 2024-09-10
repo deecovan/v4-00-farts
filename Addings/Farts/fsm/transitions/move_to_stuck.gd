@@ -15,9 +15,9 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 	pass
 
 
-## Evaluates true, if the transition conditions are met.
+## If it is too long a move or collided
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
-	if actor.timer > 6:
+	if actor.timer > 6 or actor.get_slide_collision_count() > 0:
 		#print(actor.name, " MoveToStuck now: ", actor.timer)
 		return true
 	return false

@@ -23,9 +23,7 @@ func inst_npcs(q:int) -> void:
 	for i in q:
 		var new_npc = base_npc_tscn.instantiate()
 		## Randomise spawn initial position
-		new_npc.position = Vector2(
-			-1000 - randi_range(100,100), 
-			-1000 - randi_range(100,100))
+		new_npc.position = Vector2(10000,10000)
 		add_child(new_npc, true)
 		new_npc.add_to_group("NPC")
 		new_npc.set_script(base_npc_gd)

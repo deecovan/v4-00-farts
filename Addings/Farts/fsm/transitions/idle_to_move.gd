@@ -15,10 +15,11 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 	pass
 
 
-## Evaluates true, if the transition conditions are met.
+## ??? If the random idle timer has been exceeded
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
-	
-	if actor.velocity.length() < actor.speed / 2 and actor.timer > 6 - randf()*3:
+	if (actor.velocity.length() < actor.speed / 2 
+		and actor.timer > 6 - randf()
+		):
 		## goes to Move State after 3..6s in Idle State
 		print(actor.name, 
 		" IdleToMove now: ", actor.timer, 

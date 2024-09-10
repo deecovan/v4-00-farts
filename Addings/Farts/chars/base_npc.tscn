@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ni8xdf8rqmxb"]
+[gd_scene load_steps=19 format=3 uid="uid://ni8xdf8rqmxb"]
 
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="2_em1tw"]
 [ext_resource type="Texture2D" uid="uid://crsx4kytjdiad" path="res://Addings/Farts/art/chars/square/base_character.png" id="2_kncas"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_test.gd" id="5_nwypt"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_root.gd" id="5_w0a14"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/idle.gd" id="8_w2wc1"]
-[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/idle_to_stuck.gd" id="9_lsq3f"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/move.gd" id="9_rfftv"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/idle_to_move.gd" id="10_0mkst"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/stuck.gd" id="10_s57x2"]
@@ -114,10 +113,6 @@ blackboard = ExtResource("3_x6n50")
 
 [node name="Idle" type="Node" parent="FSM"]
 script = ExtResource("8_w2wc1")
-
-[node name="IdleToStuck" type="Node" parent="FSM/Idle" node_paths=PackedStringArray("next_state")]
-script = ExtResource("9_lsq3f")
-next_state = NodePath("../../Stuck")
 
 [node name="IdleToMove" type="Node" parent="FSM/Idle" node_paths=PackedStringArray("next_state")]
 script = ExtResource("10_0mkst")
