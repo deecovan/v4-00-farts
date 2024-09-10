@@ -10,11 +10,8 @@ extends FSMState
 
 
 ## Executes after the state is entered.
-func _on_enter(actor: Node, _blackboard: Blackboard) -> void:
-	## Idle State starts timer
-	#if "timer" in actor:
-		#actor.timer = 0.0
-		pass
+func _on_enter(_actor: Node, _blackboard: Blackboard) -> void:
+	pass
 
 ## Executes every process call, if the state is active.
 func _on_update(_delta: float, _actor: Node, _blackboard: Blackboard) -> void:

@@ -15,11 +15,9 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 	pass
 
 
-## If it is too long a move or collided
+## If it is too long a move
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
-	## too long a move
 	if actor.timer > 10:
-		actor.reset_to_idle(0.0)
 		return true
 	return false
 
