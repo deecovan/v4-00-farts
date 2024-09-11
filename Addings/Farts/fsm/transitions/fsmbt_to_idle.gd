@@ -17,10 +17,8 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 
 ## If it is too long a move
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
-	if actor.timer > 10:
-		print(actor.name, " exiting  FSMBT")
-		return true
-	return false
+	print(actor.name, " exiting  FSMBT")
+	return true
 
 
 func is_valid_event(current_event: String) -> bool:

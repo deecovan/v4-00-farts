@@ -8,28 +8,25 @@ extends BTLeaf
 ## every frame and should return the status.
 
 
-var bb_tick: int
+var bt_tick: int
 
 
-func tick(delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
+func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	var timer: float = blackboard.get_value("timer")
-	bb_tick = blackboard.get_value("bb_tick")
+	bt_tick = blackboard.get_value("bt_tick")
+	print ("bt_tick ", bt_tick)
 	
 	## If not initializes BlackBoard variables
-	## Or random fail -> random select 1 of 2 leafs
 	if timer == null or randf() > 0.5:
 		return BTStatus.FAILURE
 		
-	## Else continue test one of two random leafs
-	if timer > 2:
+	## Else start actor's logic in 1%3 ticks
+	if bt_tick % 3 == 1:
 		start_actor_logic(timer, actor, blackboard)
-		timer = 0.0
 	
-	## Update timer and exit with SUCCESS
-	timer += delta
-	bb_tick += 1
-	blackboard.set_value("timer", timer)
-	blackboard.set_value("bb_tick", bb_tick)
+	## Update ticker and exit with SUCCESS
+	bt_tick += 1
+	blackboard.set_value("bt_tick", bt_tick)
 	return BTStatus.SUCCESS
 	
 	
