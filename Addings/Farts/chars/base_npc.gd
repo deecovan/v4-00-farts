@@ -1,8 +1,5 @@
 extends CharacterBody2D
 
-
-
-
 @export var dexta := 4.0
 @export var speed := 200.0 * 50 /Engine.physics_ticks_per_second
 @export var shift := 400.0 * 50 /Engine.physics_ticks_per_second
@@ -17,6 +14,7 @@ var timer: float = 0.0
 var global_center : Vector2
 var target : Vector2
 var state_machine : FiniteStateMachine
+var animations : AnimationPlayer
 
 
 func _init() -> void:

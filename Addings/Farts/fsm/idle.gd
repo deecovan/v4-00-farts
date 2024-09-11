@@ -10,8 +10,10 @@ extends FSMState
 
 
 ## Executes after the state is entered.
-func _on_enter(_actor: Node, _blackboard: Blackboard) -> void:
-	pass
+func _on_enter(actor: Node, blackboard: Blackboard) -> void:
+	## Fix early starts without vars in actors
+	if actor.has_node("AnimationPlayer"):
+		actor.find_child("AnimationPlayer").play("Idle")
 
 ## Executes every process call, if the state is active.
 func _on_update(_delta: float, _actor: Node, _blackboard: Blackboard) -> void:

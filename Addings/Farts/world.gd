@@ -46,6 +46,9 @@ func init_npcs() -> void:
 			## Start FSM 
 			child.state_machine = child.find_child("FSM")
 			child.state_machine.start()
+			## Animation player
+			child.animations = child.find_child("AnimationPlayer")
+			child.animations.play("Idle")
 			## Randomise position and target
 			child.set_random_position()
 			child.set_current_target(child.get_random_position())
@@ -59,3 +62,5 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("space"):
 		inst_npcs(1)
 		init_npcs()
+	if Input.is_action_just_pressed("Restart"):
+		get_tree().reload_current_scene()
