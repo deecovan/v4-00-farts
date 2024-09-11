@@ -15,14 +15,27 @@ var global_center : Vector2
 var target : Vector2
 var state_machine : FiniteStateMachine
 var animations : AnimationPlayer
+var color : Color
 
 
 func _init() -> void:
-	var color = pick_random_color()
-	$Cross.default_color = color
-	$Sprite2D.self_modulate = color + Color(0.4, 0.4, 0.4)
-	
-	print(name, " ready")
+	print(name, " ready: ", set_color(pick_random_color()))
+
+
+func set_color(color: Color) -> Color:
+	## Use one base color and add random Vector3 RGB
+	var base_colors := [
+		Color.CYAN, 
+		Color.MAGENTA, 
+		Color.YELLOW,
+		#Color.RED, 
+		#Color.GREEN, 
+		#Color.BLUE
+		]
+	color = (color + base_colors.pick_random() + Color(0,0,0,1))
+	$Cross.default_color = color * 0.4
+	$Sprite2D.self_modulate = color * 0.8
+	return color
 
 
 func pick_random_color() -> Color:
