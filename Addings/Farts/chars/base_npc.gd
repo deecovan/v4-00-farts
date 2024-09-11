@@ -22,7 +22,7 @@ func _init() -> void:
 	print(name, " ready: ", set_color(pick_random_color()))
 
 
-func set_color(color: Color) -> Color:
+func set_color(mod_color: Color) -> Color:
 	## Use one base color and add random Vector3 RGB
 	var base_colors := [
 		Color.CYAN, 
@@ -32,7 +32,7 @@ func set_color(color: Color) -> Color:
 		#Color.GREEN, 
 		#Color.BLUE
 		]
-	color = (color + base_colors.pick_random() + Color(0,0,0,1))
+	color = (mod_color + base_colors.pick_random())
 	$Cross.default_color = color * 0.4
 	$Sprite2D.self_modulate = color * 0.8
 	return color
