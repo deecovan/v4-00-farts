@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://c8cefweylec5b"]
+[gd_scene load_steps=10 format=4 uid="uid://c8cefweylec5b"]
 
 [ext_resource type="Script" path="res://Addings/Farts/world.gd" id="1_nebxg"]
 [ext_resource type="Texture2D" uid="uid://dhgyvaq21lqic" path="res://Addings/Farts/art/static/squares.png" id="2_iqj61"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Addings/Farts/chars/base_npc.gd" id="4_jdka1"]
 [ext_resource type="PackedScene" uid="uid://b28mcglj74pf3" path="res://Addings/Astar/Astar.tscn" id="4_vi8pi"]
 [ext_resource type="Script" path="res://Addings/Astar/astar.gd" id="5_jrhdq"]
+[ext_resource type="AudioStream" uid="uid://driehoj7n1kvp" path="res://Addings/Farts/art/audio/Eepy Boy.wav" id="7_4gm24"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s75vj"]
 texture = ExtResource("2_iqj61")
@@ -42,3 +43,9 @@ script = ExtResource("4_jdka1")
 
 [node name="Astar" parent="World" instance=ExtResource("4_vi8pi")]
 script = ExtResource("5_jrhdq")
+
+[node name="Player" type="AudioStreamPlayer2D" parent="World"]
+stream = ExtResource("7_4gm24")
+volume_db = -6.0
+autoplay = true
+max_polyphony = 4

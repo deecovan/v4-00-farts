@@ -47,7 +47,10 @@ func init_npcs() -> void:
 			child.state_machine = child.find_child("FSM")
 			child.state_machine.start()
 			## Animation player
-			child.animations = child.find_child("AnimationPlayer")
+			child.animations = child.find_child("Animations")
+			child.particles = child.find_child("Particles")
+			child.sounds = child.find_child("Sounds")
+			child.animations = child.find_child("Animations")
 			child.animations.play("Idle")
 			## Randomise position and target
 			child.set_random_position()
@@ -56,6 +59,8 @@ func init_npcs() -> void:
 
 
 func _process(_delta: float) -> void:
+	if !$Player.playing:
+		$Player.play()
 	if Input.is_action_just_pressed("alt_enter"):
 		DisplayServer.window_set_mode(4 if (
 			DisplayServer.window_get_mode()!=4) else 0)
