@@ -20,7 +20,10 @@ var state_machine : FiniteStateMachine
 
 
 func _init() -> void:
-	$Cross.default_color = pick_random_color()
+	var color = pick_random_color()
+	$Cross.default_color = color
+	$Sprite2D.self_modulate = color + Color(0.4, 0.4, 0.4)
+	
 	print(name, " ready")
 
 
