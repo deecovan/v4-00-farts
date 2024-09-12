@@ -36,7 +36,6 @@ func start_actor_logic(
 	print (actor.name, " is Speaking...")
 	actor.reset_to_idle(2)
 	actor.particles.color = actor.color / 2
-	## Uncomment to hear the music
-	#actor.sounds.play_random()
+	actor.sounds.play_random()
 	actor.animations.play("Speak")
 	
