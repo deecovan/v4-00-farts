@@ -60,7 +60,7 @@ func init_npcs() -> void:
 
 func _input(_event: InputEvent) -> void:
 	if !$Player.playing:
-		Player.play()
+		$Player.play()
 	if Input.is_action_just_pressed("alt_enter"):
 		DisplayServer.window_set_mode(4 if (
 			DisplayServer.window_get_mode()!=4) else 0)
