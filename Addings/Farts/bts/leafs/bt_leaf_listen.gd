@@ -32,4 +32,17 @@ func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	
 ## Working for each 1 sec (2 leafs in 2 seconds)
 func start_actor_logic(_timer: float, actor: Node, _blackboard: Blackboard) -> void:
-	print (actor.name, " is listening...")
+	print (actor.name, " is Listening...")
+	## Now find is anyone's speaking and set as the target
+	## Otherway find random NPC as the target
+	var world = actor.get_parent()
+	for world_child in world.get_children():
+		if (world_child != actor and world_child.is_in_group("NPC") 
+		and world_child.animations.get_current_animation() == "Speak"):
+			print ("...found Speaking: ", world_child.name, 
+			" at ", world_child.global_position)
+			## Set world_child as current target to start Move
+			actor.reset_to_target(world_child)
+			actor.timer = 0.0
+			
+			

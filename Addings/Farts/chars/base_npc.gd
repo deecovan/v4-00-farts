@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var dexta := 4.0
+@export var dexta := 5.0
 @export var speed := 200.0 * 50 /Engine.physics_ticks_per_second
 @export var shift := 400.0 * 50 /Engine.physics_ticks_per_second
 
@@ -13,6 +13,7 @@ var astar_array: Array
 var timer: float = 0.0
 var global_center : Vector2
 var target : Vector2
+var target_obj: Node
 var state_machine : FiniteStateMachine
 var animations : AnimationPlayer
 var particles : CPUParticles2D
@@ -35,8 +36,9 @@ func set_color(mod_color: Color) -> Color:
 		#Color.BLUE
 		]
 	color = (mod_color + base_colors.pick_random())
-	$Cross.default_color = color * 0.4
-	$Sprite2D.self_modulate = color * 0.8
+	$Sprite2D.self_modulate = color
+	$Cross.default_color = color * 0.6
+	$Cross.hide()
 	return color
 
 
@@ -52,6 +54,7 @@ func _physics_process(delta: float) -> void:
 	if velocity.length() < speed / dexta and astar_array.size() < 1:
 		velocity = Vector2.ZERO
 	move_and_slide()
+	
 	
 func get_input(delta) -> Vector2:
 	timer += delta
@@ -72,36 +75,52 @@ func get_input(delta) -> Vector2:
 		#print("Boom! ", name, " at ", position)
 		reset_to_idle()
 
-	## If State == * and near is another Speaking
-	## --> State Ignore -> State Moving
-	## --> State Stop -> State Hearing -> State Decide
-	
-	## If State == Decide 
-	## --> Speaking
-	## --> Confirm
-	## --> Deny	
-	
-	## If State == Folowing and target NPC is near
-	## -> State Speaking
-	
-	## If State == Moving and near is target Position
-	## -> State Idle
-	
-	## If State == Moving and Target Position not changing
-	## -> State Stuck
-	
-	## If State == Stuck
-	## If State == Iddle
-	## -> State Looking 
-	## --> State Pick new target (NPC or position) 
-	## ---> State Moving to target
-	
-	## Stuck/Idle -> Moving
-	#### continue to BTLeafTest script
+	if $Cross.default_color == Color.BLACK:
+		print("Color IS BLACK!!! ", name)
 		
 	return velocity_to
 
 
+func get_current_target():
+	## Get target via get_current_star
+	if astar_array.size() > 0:
+		target = get_current_star()
+		$Cross.global_position = target
+	return target
+	
+
+func get_current_star() -> Vector2:
+	## Get current star from Astar array
+	var star: Vector2 = astar_array.front()
+	if (star - self.global_position).length() < Vector2(tile_size / 2).length():
+		astar_array.remove_at(0)
+	return star
+
+
+func set_current_target(new_target: Vector2) -> bool:
+	target = new_target
+	astar_array = get_static_astar(target)
+	return astar_array.size() > 0
+	
+
+func update_current_target() -> bool:
+	if target_obj is CharacterBody2D:
+		target = target_obj.global_position
+	else:
+		return false
+	astar_array = get_static_astar(target)
+	if astar_array.size() <= 2:
+		print(name, " Reached target: ", target_obj.name, " in time: ",
+		"now" if int(timer) == 0 else "%s" % int(timer))
+		target_obj = null
+		reset_to("Success")
+		return false
+	else:
+		print(name, " Updated target: ", target_obj.name, 
+		" moves to: ", astar_array.size())
+		return true
+	
+	
 func get_random_position() -> Vector2:
 	randomize()
 	var free_cells: Array[Vector2] = func_get_free_static_cells.call()
@@ -120,31 +139,26 @@ func get_static_astar(targeted: Vector2) -> Array:
 	return targeted_astar_array
 
 
-func get_current_star() -> Vector2:
-	## Get current star from Astar array
-	var star: Vector2 = astar_array.front()
-	if (star - self.global_position).length() < Vector2(tile_size / 2).length():
-		astar_array.remove_at(0)
-	return star
-
-
-func set_current_target(targeted: Vector2) -> bool:
-	target = targeted as Vector2
-	astar_array = get_static_astar(target)
-	return astar_array.size() > 0
-
-
-func get_current_target():
-	## Get target via get_current_star
-	if astar_array.size() > 0:
-		target = get_current_star()
-	$Cross.global_position = target
-	return target
-	
-	
 func reset_to_idle(from_timer: float = 3.0) -> void:
-	## Force start timer
 	timer = from_timer
 	target = global_position
 	astar_array = []
-	state_machine.change_state(state_machine.states[0])
+	reset_to("Initial")
+	
+	
+func reset_to_target(target_body: CharacterBody2D) -> void:
+	target = target_body.global_position
+	target_obj = target_body
+	reset_to("Target")
+	
+	
+func reset_to(fsm_state: StringName) -> void:
+	state_machine.change_state(get_fsm_state(fsm_state))
+	
+	
+func get_fsm_state(state_name: StringName) -> FSMState:
+	for found_state in state_machine.states:
+		if found_state.name == state_name:
+			return(found_state)
+	## if not found return initial as defined
+	return state_machine.initial_state

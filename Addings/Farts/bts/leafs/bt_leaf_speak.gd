@@ -33,7 +33,7 @@ func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 ## Working for each 1 sec (2 leafs in 2 seconds)
 func start_actor_logic(
 	_timer: float, actor: Node, _blackboard: Blackboard) -> void:
-	print (actor.name, " is speaking...")
+	print (actor.name, " is Speaking...")
 	actor.reset_to_idle(2)
 	actor.particles.color = actor.color / 2
 	## Uncomment to hear the music

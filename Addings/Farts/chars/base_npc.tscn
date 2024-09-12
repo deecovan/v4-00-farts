@@ -1,16 +1,21 @@
-[gd_scene load_steps=26 format=3 uid="uid://ni8xdf8rqmxb"]
+[gd_scene load_steps=33 format=3 uid="uid://ni8xdf8rqmxb"]
 
+[ext_resource type="PackedScene" uid="uid://c4tpc7flvp8pe" path="res://Addings/Farts/art/audio/parts/sounds.tscn" id="1_ujldp"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="2_em1tw"]
 [ext_resource type="Texture2D" uid="uid://dvbngwf0lo3tq" path="res://Addings/Farts/art/chars/square/base_character.png" id="2_kncas"]
 [ext_resource type="Resource" uid="uid://br6ou5fblkmy6" path="res://Addings/Farts/bts/BTblackboard.tres" id="3_x6n50"]
 [ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_init.gd" id="4_pg6d5"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_root.gd" id="5_w0a14"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/idle.gd" id="8_w2wc1"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/target_to_move.gd" id="9_6hs22"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/target.gd" id="9_n3e2m"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/move.gd" id="9_rfftv"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/idle_to_move.gd" id="10_0mkst"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/idle_to_FSMBT.gd" id="10_7mix7"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/stuck.gd" id="10_s57x2"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/success.gd" id="11_q4nlu"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state_integrated_bt.gd" id="11_sbyhp"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/success_to_idle.gd" id="12_rittn"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_idle.gd" id="12_uf31i"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_stuck.gd" id="13_a13s7"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/stuck_to_idle.gd" id="16_lujs4"]
@@ -94,14 +99,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Particles:emitting")
+tracks/1/path = NodePath("Cross:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cross:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Cross:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_4w31y"]
@@ -133,12 +162,142 @@ tracks/1/keys = {
 "values": [false, true]
 }
 
+[sub_resource type="Animation" id="Animation_eu742"]
+resource_name = "Success"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [60, 24, 25, 62, 61]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Particles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cross:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Cross:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [6.28319, 3.14159, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Cross:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_7f1d5"]
+resource_name = "Target"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 23]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Particles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cross:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Cross:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.5708, 3.14159]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Cross:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e67pj"]
 _data = {
 "Idle": SubResource("Animation_2kq5y"),
 "Move": SubResource("Animation_o6oo2"),
 "RESET": SubResource("Animation_af5p6"),
-"Speak": SubResource("Animation_4w31y")
+"Speak": SubResource("Animation_4w31y"),
+"Success": SubResource("Animation_eu742"),
+"Target": SubResource("Animation_7f1d5")
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v7b26"]
@@ -152,6 +311,8 @@ radius = 15.0
 
 [node name="BaseNPC" type="CharacterBody2D"]
 motion_mode = 1
+
+[node name="Sounds" parent="." instance=ExtResource("1_ujldp")]
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 deterministic = true
@@ -181,17 +342,18 @@ anim_speed_min = 32.0
 anim_speed_max = 64.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 500
 position = Vector2(0, -2)
 texture = ExtResource("2_kncas")
 hframes = 9
 vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_b26gw")
 
 [node name="Cross" type="Line2D" parent="."]
-visible = false
+z_index = 555
+scale = Vector2(1e-05, 1e-05)
 points = PackedVector2Array(0, -15, 0, 0.0426102, 0, 15, 0, 0, -15, 0, 15, 0)
 width = 4.0
 default_color = Color(1, 0, 0, 1)
@@ -222,6 +384,20 @@ next_state = NodePath("../../Move")
 [node name="IdleToFSMBT" type="Node" parent="FSM/Idle" node_paths=PackedStringArray("next_state")]
 script = ExtResource("10_7mix7")
 next_state = NodePath("../../FSMBT")
+
+[node name="Target" type="Node" parent="FSM"]
+script = ExtResource("9_n3e2m")
+
+[node name="TargetToMove" type="Node" parent="FSM/Target" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_6hs22")
+next_state = NodePath("../../Move")
+
+[node name="Success" type="Node" parent="FSM"]
+script = ExtResource("11_q4nlu")
+
+[node name="SuccessToIdle" type="Node" parent="FSM/Success" node_paths=PackedStringArray("next_state")]
+script = ExtResource("12_rittn")
+next_state = NodePath("../../Idle")
 
 [node name="Move" type="Node" parent="FSM"]
 script = ExtResource("9_rfftv")

@@ -8,21 +8,28 @@ extends FSMState
 ## To implement your logic you can override the [code]_on_enter, _on_update and
 ## _on_exit[/code] methods when extending the node's script.
 
+var move_timer := 0.0
+
 
 ## Executes after the state is entered.
 func _on_enter(actor: Node, _blackboard: Blackboard) -> void:
 	#### Continue from BaseNPC script	
 	if actor.velocity.length() < 200 and actor.timer > 3:
-		while not actor.set_current_target(actor.get_random_position()):
-			print("%s can't move to %s, re-target" % [actor.name, actor.target])
+		if !actor.update_current_target():
+			actor.set_current_target(actor.get_random_position())
 		#print(actor.name, " Moving to ", actor.target)
 		actor.animations.play("Move")
 		actor.timer = 0.0
 
 
 ## Executes every process call, if the state is active.
-func _on_update(_delta: float, _actor: Node, _blackboard: Blackboard) -> void:
-	pass
+func _on_update(delta: float, actor: Node, _blackboard: Blackboard) -> void:
+	move_timer += delta
+	if move_timer > 0.5:
+		if actor.update_current_target():
+			actor.animations.play("Target")
+		move_timer = 0.0
+	
 
 
 ## Executes before the state is exited.

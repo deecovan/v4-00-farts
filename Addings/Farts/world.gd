@@ -9,7 +9,7 @@ extends Node2D
 
 func _ready() -> void:
 	## Instantiate NPC's
-	inst_npcs(15)
+	inst_npcs(5)
 	
 	astar.global_center = get_viewport().get_visible_rect().get_center()
 	astar.static_tilemap_layer = statics
@@ -58,10 +58,7 @@ func init_npcs() -> void:
 			print(child.get_instance_id(), child.global_position, child.target)
 
 
-func _process(_delta: float) -> void:
-	## Uncomment to hear the music
-	#if !$Player.playing:
-		#$Player.play()
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("alt_enter"):
 		DisplayServer.window_set_mode(4 if (
 			DisplayServer.window_get_mode()!=4) else 0)
