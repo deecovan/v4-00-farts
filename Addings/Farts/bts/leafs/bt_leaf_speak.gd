@@ -14,7 +14,7 @@ var bt_tick: int
 func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	var timer: float = blackboard.get_value("timer")
 	bt_tick = blackboard.get_value("bt_tick")
-	print ("bt_tick ", bt_tick)
+	#print ("bt_tick ", bt_tick)
 	
 	## If not initializes BlackBoard variables
 	if timer == null or randf() > 0.5:

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Addings/Farts/chars/base_npc.gd" id="4_jdka1"]
 [ext_resource type="PackedScene" uid="uid://b28mcglj74pf3" path="res://Addings/Astar/Astar.tscn" id="4_vi8pi"]
 [ext_resource type="Script" path="res://Addings/Astar/astar.gd" id="5_jrhdq"]
-[ext_resource type="AudioStream" uid="uid://driehoj7n1kvp" path="res://Addings/Farts/art/audio/Eepy Boy.wav" id="7_4gm24"]
+[ext_resource type="AudioStream" uid="uid://cd8qsmb1i72pk" path="res://Addings/Farts/art/audio/Eepy Boy Esalstique.wav" id="7_irvyt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s75vj"]
 texture = ExtResource("2_iqj61")
@@ -42,7 +42,7 @@ tile_set = SubResource("TileSet_kegr3")
 script = ExtResource("5_jrhdq")
 
 [node name="Player" type="AudioStreamPlayer2D" parent="World"]
-stream = ExtResource("7_4gm24")
+stream = ExtResource("7_irvyt")
 volume_db = -6.0
 autoplay = true
 max_polyphony = 4

@@ -16,10 +16,10 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 
 
 ## start FSMBT
-func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
-	## 1%
-	if randf() < (0.01):
-		print(actor.name, " is entering  FSMBT")
+func is_valid(_actor: Node, _blackboard: Blackboard) -> bool:
+	## 1.5%
+	if randf() < (0.015):
+		#print(actor.name, " is entering  FSMBT")
 		return true
 	return false
 

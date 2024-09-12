@@ -18,9 +18,8 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 ## If it is too long a move
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
 	if actor.animations.current_animation == "Speak" and actor.timer < 6:
-		print ("Timer: ", actor.timer)
 		return false
-	print(actor.name, " exiting  FSMBT")
+	#print(actor.name, " exiting  FSMBT")
 	return true
 
 

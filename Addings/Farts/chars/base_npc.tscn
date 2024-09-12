@@ -233,9 +233,9 @@ speed_scale = 2.0
 
 [node name="Particles" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_v7b26")
-position = Vector2(0, 21)
+position = Vector2(0, 24)
 emitting = false
-amount = 256
+amount = 128
 lifetime = 0.8
 one_shot = true
 explosiveness = 0.2
@@ -244,9 +244,9 @@ spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 32.0
 initial_velocity_max = 64.0
-damping_min = 26.316
-damping_max = 57.895
-scale_amount_max = 4.0
+damping_min = 32.0
+damping_max = 64.0
+scale_amount_max = 6.0
 anim_speed_min = 32.0
 anim_speed_max = 64.0
 
@@ -254,9 +254,9 @@ anim_speed_max = 64.0
 stream = SubResource("AudioStreamPlaylist_7uccc")
 volume_db = -6.0
 pitch_scale = 2.0
-attenuation = 3.03143
+attenuation = 0.6
 max_polyphony = 4
-panning_strength = 2.0
+panning_strength = 4.0
 script = ExtResource("2_haga6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
