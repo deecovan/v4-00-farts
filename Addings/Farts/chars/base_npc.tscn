@@ -1,6 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://ni8xdf8rqmxb"]
+[gd_scene load_steps=25 format=3 uid="uid://ni8xdf8rqmxb"]
 
-[ext_resource type="Texture2D" uid="uid://crsx4kytjdiad" path="res://Addings/Farts/art/chars/square/base_character.png" id="2_kncas"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="2_em1tw"]
+[ext_resource type="Texture2D" uid="uid://dvbngwf0lo3tq" path="res://Addings/Farts/art/chars/square/base_character.png" id="2_kncas"]
+[ext_resource type="Resource" uid="uid://br6ou5fblkmy6" path="res://Addings/Farts/bts/BTblackboard.tres" id="3_x6n50"]
+[ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_init.gd" id="4_pg6d5"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_root.gd" id="5_w0a14"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/idle.gd" id="8_w2wc1"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/move.gd" id="9_rfftv"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/idle_to_move.gd" id="10_0mkst"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/idle_to_FSMBT.gd" id="10_7mix7"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/stuck.gd" id="10_s57x2"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state_integrated_bt.gd" id="11_sbyhp"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_idle.gd" id="12_uf31i"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_stuck.gd" id="13_a13s7"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/stuck_to_idle.gd" id="16_lujs4"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_random_selector.gd" id="16_nwklx"]
+[ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_speak.gd" id="17_exky8"]
+[ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_listen.gd" id="18_rcitu"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/fsmbt_to_idle.gd" id="20_nxdvd"]
 
 [sub_resource type="Animation" id="Animation_2kq5y"]
 resource_name = "Idle"
@@ -14,10 +31,28 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.142857, 0.285714, 0.428571),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_o6oo2"]
+resource_name = "Move"
+length = 1.2
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.142857, 0.285714, 0.428571, 0.571429, 0.714286, 0.857143, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 20, 1, 2, 3, 22]
 }
 
 [sub_resource type="Animation" id="Animation_af5p6"]
@@ -35,10 +70,29 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_4w31y"]
+resource_name = "Speak"
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.142857, 0.285714, 0.428571, 0.571429, 0.714286, 0.857143),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 60, 61, 62, 61, 60, 0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e67pj"]
 _data = {
 "Idle": SubResource("Animation_2kq5y"),
-"RESET": SubResource("Animation_af5p6")
+"Move": SubResource("Animation_o6oo2"),
+"RESET": SubResource("Animation_af5p6"),
+"Speak": SubResource("Animation_4w31y")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b26gw"]
@@ -48,10 +102,12 @@ radius = 15.0
 motion_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
 libraries = {
 "": SubResource("AnimationLibrary_e67pj")
 }
 autoplay = "Idle"
+speed_scale = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -2)
@@ -60,9 +116,78 @@ hframes = 9
 vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_b26gw")
 
 [node name="Cross" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, -15, 0, 0.0426102, 0, 15, 0, 0, -15, 0, 15, 0)
 width = 4.0
 default_color = Color(1, 0, 0, 1)
+
+[node name="BTInit" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("5_w0a14")
+autostart = true
+actor = NodePath("..")
+blackboard = ExtResource("3_x6n50")
+
+[node name="BTLeafInit" type="Node" parent="BTInit"]
+script = ExtResource("4_pg6d5")
+
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("initial_state", "actor")]
+script = ExtResource("2_em1tw")
+autostart = true
+initial_state = NodePath("Idle")
+actor = NodePath("..")
+blackboard = ExtResource("3_x6n50")
+
+[node name="Idle" type="Node" parent="FSM"]
+script = ExtResource("8_w2wc1")
+
+[node name="IdleToMove" type="Node" parent="FSM/Idle" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_0mkst")
+next_state = NodePath("../../Move")
+
+[node name="IdleToFSMBT" type="Node" parent="FSM/Idle" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_7mix7")
+next_state = NodePath("../../FSMBT")
+
+[node name="Move" type="Node" parent="FSM"]
+script = ExtResource("9_rfftv")
+
+[node name="MoveToIdle" type="Node" parent="FSM/Move" node_paths=PackedStringArray("next_state")]
+script = ExtResource("12_uf31i")
+next_state = NodePath("../../Idle")
+
+[node name="MoveToStuck" type="Node" parent="FSM/Move" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_a13s7")
+next_state = NodePath("../../Stuck")
+
+[node name="Stuck" type="Node" parent="FSM"]
+script = ExtResource("10_s57x2")
+
+[node name="StuckToIdle" type="Node" parent="FSM/Stuck" node_paths=PackedStringArray("next_state")]
+script = ExtResource("16_lujs4")
+next_state = NodePath("../../Idle")
+
+[node name="FSMBT" type="Node" parent="FSM"]
+script = ExtResource("11_sbyhp")
+
+[node name="Root" type="Node" parent="FSM/FSMBT" node_paths=PackedStringArray("actor")]
+script = ExtResource("5_w0a14")
+autostart = true
+actor = NodePath("../../..")
+blackboard = ExtResource("3_x6n50")
+
+[node name="BTRandomSelector" type="Node" parent="FSM/FSMBT/Root"]
+script = ExtResource("16_nwklx")
+
+[node name="BTLSpeak" type="Node" parent="FSM/FSMBT/Root/BTRandomSelector"]
+script = ExtResource("17_exky8")
+
+[node name="BTLListen" type="Node" parent="FSM/FSMBT/Root/BTRandomSelector"]
+script = ExtResource("18_rcitu")
+
+[node name="FSMBTToIdle" type="Node" parent="FSM/FSMBT" node_paths=PackedStringArray("next_state")]
+script = ExtResource("20_nxdvd")
+next_state = NodePath("../../Idle")

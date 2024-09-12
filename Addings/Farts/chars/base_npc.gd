@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-@export var dexta := 5.0
-@export var speed := 200.0
-@export var shift := 400.0
+@export var dexta := 4.0
+@export var speed := 200.0 * 50 /Engine.physics_ticks_per_second
+@export var shift := 400.0 * 50 /Engine.physics_ticks_per_second
 
 
 var tile_size: Vector2
@@ -13,49 +13,95 @@ var astar_array: Array
 var timer: float = 0.0
 var global_center : Vector2
 var target : Vector2
+var state_machine : FiniteStateMachine
+var animations : AnimationPlayer
+var color : Color
+
 
 func _init() -> void:
-	$Cross.default_color = Color(
-		randf_range(0.75,1),
-		randf_range(0.25,0.75),
-		randf_range(0.25,0.75),)
-	print(name, " ready")
+	print(name, " ready: ", set_color(pick_random_color()))
+
+
+func set_color(mod_color: Color) -> Color:
+	## Use one base color and add random Vector3 RGB
+	var base_colors := [
+		Color.CYAN, 
+		Color.MAGENTA, 
+		Color.YELLOW,
+		#Color.RED, 
+		#Color.GREEN, 
+		#Color.BLUE
+		]
+	color = (mod_color + base_colors.pick_random())
+	$Cross.default_color = color * 0.4
+	$Sprite2D.self_modulate = color * 0.8
+	return color
+
+
+func pick_random_color() -> Color:
+	var rv = Vector3(randf(),randf(),randf()).normalized()
+	return Color(rv.x, rv.y, rv.z)
+
 
 func _physics_process(delta: float) -> void:
-	## Lerp physics
+	## Move
 	velocity = lerp(velocity, get_input(delta) * speed, delta * dexta)
+	## Stop
+	if velocity.length() < speed / dexta and astar_array.size() < 1:
+		velocity = Vector2.ZERO
 	move_and_slide()
 	
 func get_input(delta) -> Vector2:
 	timer += delta
-	## Get mouse click and vector
+	## Get target and direction
 	var velocity_to: Vector2 = global_position.direction_to(
-		get_current_target())
+		get_current_target()).normalized()
 	
 	# Speed shift
 	if astar_array.size() > 1:
 		velocity_to *= shift / speed
-	
-	# Collisions
+		
+	# Collisions !!!HERE because FSM cant process slide_collisions
 	if get_slide_collision_count() > 0:
 		var normal = get_last_slide_collision().get_normal()
 		position +=  normal * dexta + Vector2(
 			randi_range(-8,8),randi_range(-8,8))
-		#velocity *= -normal * Vector2(
-			#randf_range(-1,1), randf_range(-1,1))
 		velocity = Vector2.ZERO
-			
-	## If state == stuck
-	## If state == iddle
-	if velocity.length() < 100 and timer > 3:
-		timer = 0.0
-		while not set_current_target(get_random_position()):
-			print("%s can't move to %s, re-target" % [name, target])
-		print(name, " mooving to ", target)
+		#print("Boom! ", name, " at ", position)
+		reset_to_idle()
+
+	## If State == * and near is another Speaking
+	## --> State Ignore -> State Moving
+	## --> State Stop -> State Hearing -> State Decide
+	
+	## If State == Decide 
+	## --> Speaking
+	## --> Confirm
+	## --> Deny	
+	
+	## If State == Folowing and target NPC is near
+	## -> State Speaking
+	
+	## If State == Moving and near is target Position
+	## -> State Idle
+	
+	## If State == Moving and Target Position not changing
+	## -> State Stuck
+	
+	## If State == Stuck
+	## If State == Iddle
+	## -> State Looking 
+	## --> State Pick new target (NPC or position) 
+	## ---> State Moving to target
+	
+	## Stuck/Idle -> Moving
+	#### continue to BTLeafTest script
 		
 	return velocity_to
 
+
 func get_random_position() -> Vector2:
+	randomize()
 	var free_cells: Array[Vector2] = func_get_free_static_cells.call()
 	var rand_pos = free_cells.pick_random()
 	return global_center + rand_pos * tile_size + tile_size / 2
@@ -78,8 +124,8 @@ func get_current_star() -> Vector2:
 	if (star - self.global_position).length() < Vector2(tile_size / 2).length():
 		astar_array.remove_at(0)
 	return star
-	
-	
+
+
 func set_current_target(targeted: Vector2) -> bool:
 	target = targeted as Vector2
 	astar_array = get_static_astar(target)
@@ -92,3 +138,11 @@ func get_current_target():
 		target = get_current_star()
 	$Cross.global_position = target
 	return target
+	
+	
+func reset_to_idle(from_timer: float = 3.0) -> void:
+	## Force start timer
+	timer = from_timer
+	target = global_position
+	astar_array = []
+	state_machine.change_state(state_machine.states[0])
