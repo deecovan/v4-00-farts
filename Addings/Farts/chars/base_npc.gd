@@ -15,6 +15,8 @@ var global_center : Vector2
 var target : Vector2
 var state_machine : FiniteStateMachine
 var animations : AnimationPlayer
+var particles : CPUParticles2D
+var sounds : AudioStreamPlayer2D
 var color : Color
 
 

@@ -16,3 +16,5 @@
 - Start deploy BT's with Speakers/Listeners
 	- Deploy FSMBT Enter, Speak-Listen and Exit
 - Tag base-npc-fsm
+- :) Add juicy sounds, music and CPU particles to the Speak state
+- Add reverberation FX to master bus

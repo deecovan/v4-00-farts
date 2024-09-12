@@ -14,7 +14,7 @@ var bt_tick: int
 func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	var timer: float = blackboard.get_value("timer")
 	bt_tick = blackboard.get_value("bt_tick")
-	print ("bt_tick ", bt_tick)
+	#print ("bt_tick ", bt_tick)
 	
 	## If not initializes BlackBoard variables
 	if timer == null or randf() > 0.5:
@@ -31,5 +31,11 @@ func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	
 	
 ## Working for each 1 sec (2 leafs in 2 seconds)
-func start_actor_logic(_timer: float, actor: Node, _blackboard: Blackboard) -> void:
+func start_actor_logic(
+	_timer: float, actor: Node, _blackboard: Blackboard) -> void:
 	print (actor.name, " is speaking...")
+	actor.reset_to_idle(2)
+	actor.particles.color = actor.color / 2
+	actor.sounds.play_random()
+	actor.animations.play("Speak")
+	
