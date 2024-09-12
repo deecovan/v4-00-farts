@@ -12,4 +12,4 @@ wet = 0.1
 
 [resource]
 bus/0/effect/0/effect = SubResource("AudioEffectReverb_d7pxh")
-bus/0/effect/0/enabled = true
+bus/0/effect/0/enabled = false

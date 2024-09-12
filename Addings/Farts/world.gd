@@ -59,8 +59,9 @@ func init_npcs() -> void:
 
 
 func _process(_delta: float) -> void:
-	if !$Player.playing:
-		$Player.play()
+	## Uncomment to hear the music
+	#if !$Player.playing:
+		#$Player.play()
 	if Input.is_action_just_pressed("alt_enter"):
 		DisplayServer.window_set_mode(4 if (
 			DisplayServer.window_get_mode()!=4) else 0)

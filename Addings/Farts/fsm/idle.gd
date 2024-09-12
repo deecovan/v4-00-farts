@@ -10,8 +10,8 @@ extends FSMState
 
 
 ## Executes after the state is entered.
-func _on_enter(actor: Node, blackboard: Blackboard) -> void:
-	## Fix early starts without vars in actors
+func _on_enter(actor: Node, _blackboard: Blackboard) -> void:
+	## Fix Initial State is starting early than vars are defined
 	if actor.has_node("Animations"):
 		actor.find_child("Animations").play("Idle")
 
