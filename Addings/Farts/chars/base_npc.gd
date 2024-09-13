@@ -207,3 +207,4 @@ func paint_color(body:CharacterBody2D, new_color:Color) -> void:
 	body.find_child("Particles").color =  new_color * 0.6
 	body.find_child("Cross").default_color = new_color * 0.6
 	body.find_child("Cross").hide()
+	body.color = new_color
