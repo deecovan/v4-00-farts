@@ -35,10 +35,8 @@ func set_color(mod_color: Color) -> Color:
 		#Color.GREEN, 
 		#Color.BLUE
 		]
-	color = (mod_color + base_colors.pick_random())
-	$Sprite2D.self_modulate = color
-	$Cross.default_color = color * 0.6
-	$Cross.hide()
+	color = normalize_color(mod_color + base_colors.pick_random())
+	paint_color(self, color)
 	return color
 
 
@@ -169,11 +167,38 @@ func _on_sens_body_entered(body: Node2D) -> void:
 	and body.animations.is_playing() 
 	and body.animations.current_animation == "Speak"):
 		print(name, " is hearing ", body.name, " speak ", body.color)
-		diffuse_update_color(self, body.color)
+		diffuse_rand_color(self, body.color)
 
 
-func diffuse_update_color(body:CharacterBody2D, add_color:Color) -> void:
-	body.color = (body.color + add_color) / 2
-	$Sprite2D.self_modulate = body.color
-	$Cross.default_color = body.color * 0.6
+func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> void:
+	## Iterate colors and randomly clear RGB
+	var add_color_arr = [add_color.r, add_color.g, add_color.b]
+	var add_base_arr  = ["r", "g", "b"]
+	for c in add_base_arr:
+		var i := add_base_arr.find(c)
+		if add_base_arr.pick_random() != c:
+			add_color_arr[i] = - add_color_arr[i]
+		else: 
+			add_color_arr[i] = 2 * add_color_arr[i]
+	body.color = normalize_color(body.color 
+		+ Color(add_color_arr[0],add_color_arr[1],add_color_arr[2]))
+	print(name, " is painted by ", add_color_arr, " to ", body.color)
+	paint_color(body, body.color)
+	
+
+func paint_color(body:CharacterBody2D, new_color:Color) -> void:
+	body.find_child("Sprite2D").self_modulate = new_color
+	body.find_child("Particles").color =  new_color * 0.6
+	body.find_child("Cross").default_color = new_color * 0.6
+	body.find_child("Cross").hide()
+
+
+func normalize_color(raw_color: Color) -> Color:
+	raw_color.r = clampf(raw_color.r, 0, 1)
+	raw_color.g = clampf(raw_color.g, 0, 1)
+	raw_color.b = clampf(raw_color.b, 0, 1)
+	var cv := Vector3(
+		raw_color.r, raw_color.g, raw_color.b
+		).normalized() * 2
+	return Color(cv.x, cv.y, cv.z, 1)
 	
