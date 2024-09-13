@@ -322,6 +322,7 @@ autoplay = "Idle"
 speed_scale = 2.0
 
 [node name="Particles" type="CPUParticles2D" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_v7b26")
 position = Vector2(0, 24)
 emitting = false

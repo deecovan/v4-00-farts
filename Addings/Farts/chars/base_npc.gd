@@ -171,10 +171,11 @@ func _on_sens_body_entered(body: Node2D) -> void:
 	and body.animations.is_playing() 
 	and body.animations.current_animation == "Speak"):
 		print(name, " is hearing ", body.name, " speak ", body.color)
-		diffuse_rand_color(self, body.color)
+		start_diffuse_animation(body, self, 
+			diffuse_rand_color(self, body.color))
 
 
-func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> void:
+func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> int:
 	## Iterate colors and randomly clear RGB
 	var add_color_arr = [add_color.r, add_color.g, add_color.b]
 	var add_base_arr  = ["r", "g", "b"]
@@ -187,8 +188,17 @@ func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> void:
 		+ Color(add_color_arr[0],add_color_arr[1],add_color_arr[2]))
 	print(name, " is painted by ", add_color_arr, " to ", color_to)
 	paint_color(body, color_to)
+	return Vector3(
+			add_color_arr[0],add_color_arr[1],add_color_arr[2]
+			).length()
 	
-	
+
+func start_diffuse_animation(
+	from:CharacterBody2D, to:CharacterBody2D, amount:int) -> void:
+	for i in amount:
+		pass
+
+
 func normalize_color(raw_color: Color) -> Color:
 	## Clamp below zero values
 	raw_color.r = clampf(raw_color.r, 0, 2)
