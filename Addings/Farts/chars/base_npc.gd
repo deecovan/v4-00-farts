@@ -176,14 +176,13 @@ func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> void:
 	var add_base_arr  = ["r", "g", "b"]
 	for c in add_base_arr:
 		var i := add_base_arr.find(c)
-		if add_base_arr.pick_random() != c:
-			add_color_arr[i] = 0 # - add_color_arr[i]
-		else: 
-			add_color_arr[i] = add_color_arr[i] # * 2
-	body.color = normalize_color(body.color 
+		## If random chanse 1/2 matched: do colorize
+		if randf() > 0.5:
+			add_color_arr[i] = 0
+	var color_to = normalize_color(body.color 
 		+ Color(add_color_arr[0],add_color_arr[1],add_color_arr[2]))
-	print(name, " is painted by ", add_color_arr, " to ", body.color)
-	paint_color(body, body.color)
+	print(name, " is painted by ", add_color_arr, " to ", color_to)
+	paint_color(body, color_to)
 	
 	
 func normalize_color(raw_color: Color) -> Color:
@@ -193,18 +192,19 @@ func normalize_color(raw_color: Color) -> Color:
 	raw_color.b = clampf(raw_color.b, 0, 2)
 	var cv := Vector3(raw_color.r, raw_color.g, raw_color.b)
 	## normalize 
-	if cv.length() > 3 or cv.length() < 1:
+	if cv.length() > 2 or cv.length() < 1:
 		cv = cv.normalized()
 	return Color(cv.x, cv.y, cv.z, 1)
 
 
 func paint_color(body:CharacterBody2D, new_color:Color) -> void:
+	## Test root NPC with always red
 	if body.name == "BaseNPC":
-		new_color = Color.RED
-		body.color = color
 		print("---TEST-PAUSE-HERE---")
-	body.find_child("Sprite2D").modulate = new_color
-	body.find_child("Particles").color =  new_color * 0.6
-	body.find_child("Cross").default_color = new_color * 0.6
-	body.find_child("Cross").hide()
+		new_color = Color.RED
+		body.color = new_color
 	body.color = new_color
+	body.find_child("Sprite2D").modulate = new_color
+	body.find_child("Particles").color =  new_color * 0.8
+	body.find_child("Cross").default_color = new_color * 0.8
+	body.find_child("Cross").hide()

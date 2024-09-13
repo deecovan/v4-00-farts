@@ -341,6 +341,7 @@ anim_speed_min = 32.0
 anim_speed_max = 64.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
 z_index = 500
 position = Vector2(0, -2)
 texture = ExtResource("2_kncas")
