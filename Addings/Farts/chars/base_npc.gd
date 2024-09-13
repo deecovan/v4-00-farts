@@ -25,6 +25,19 @@ func _init() -> void:
 	print(name, " ready: ", set_color(pick_random_color()))
 
 
+func _physics_process(delta: float) -> void:
+	## Move
+	velocity = lerp(velocity, get_input(delta) * speed, delta * dexta)
+	## Stop
+	if velocity.length() < speed / dexta and astar_array.size() < 1:
+		velocity = Vector2.ZERO
+	## Debug 
+	var _name = name
+	var _timer = timer
+	var _state_str = state_machine.active_state.name
+	move_and_slide()
+	
+	
 func set_color(mod_color: Color) -> Color:
 	## Use one base color and add random Vector3 RGB
 	var base_colors := [
@@ -45,15 +58,6 @@ func pick_random_color() -> Color:
 	return Color(rv.x, rv.y, rv.z)
 
 
-func _physics_process(delta: float) -> void:
-	## Move
-	velocity = lerp(velocity, get_input(delta) * speed, delta * dexta)
-	## Stop
-	if velocity.length() < speed / dexta and astar_array.size() < 1:
-		velocity = Vector2.ZERO
-	move_and_slide()
-	
-	
 func get_input(delta) -> Vector2:
 	timer += delta
 	## Get target and direction

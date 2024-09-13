@@ -1,21 +1,23 @@
 # v4-00-farts GitHub and BitBucket repo
 ## Added Project's branch 13-add-farts-and-its-beheivours 
-- Deployed BaseNPC
-- Fixed most Position's issues on enter Fullscreen or on Resize window
-- Working NPC's movement
-- Working NPC's instantiation
-- Deployed and tested main BehaviourToolkit features:
+- Deploy BaseNPC
+- Fix most Position's issues on enter Fullscreen or on Resize window
+- Deploy NPC's movement
+- Deploy NPC's instantiation
+- Deploy main BehaviourToolkit features:
 	- BTSelector with 2 Leafs
-	- BT FSM with basic idle/move/stuck states and transitions
-- Comment States and remove redundant logic
-- Finally tested FSM with Idle/Move/Stuck
-	- Separate States/Transitions and Physics process in NPCs 
-	  because FSM cant process
-	- Use reset_to_idle method in NPCs with forced Timer and State
+	- FSM with basic idle/move/stuck states and transitions
+- Describe States and remove redundant logic
+- Final poke FSM with Idle/Move/Stuck
+	- FSM States/Transitions and NPC's Physics process
+	- Deploy reset_to_state method in NPCs with forced Timer and State
 	- Link FSM into NPCs via child.state_machine child.find_child(FSM)
 - Start deploy BT's with Speakers/Listeners
-	- Deploy FSMBT Enter, Speak-Listen and Exit
-- Tag base-npc-fsm
+	- Deploy FSMBT Enter, Speak/Listen and Exit
 - :) Add juicy sounds, music and CPU particles to the Speak state
-- Add reverberation FX to master bus
-- Merge all commits into initial
+- Deploy Collor Diffusion on NPC Hear Speaks and Persuit on Listen
+- START deploy elections:
+	- Implement Colorize animation
+	- Add Election counter progression based on Colorize quantity
+	- Deploy Election State, transitions and BT
+	- Create Boss elected and Global Target set

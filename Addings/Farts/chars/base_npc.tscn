@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state_integrated_bt.gd" id="11_sbyhp"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/success_to_idle.gd" id="12_rittn"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_idle.gd" id="12_uf31i"]
-[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/move_to_stuck.gd" id="13_a13s7"]
+[ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/_to_stuck.gd" id="13_a13s7"]
 [ext_resource type="Script" path="res://Addings/Farts/fsm/transitions/stuck_to_idle.gd" id="16_lujs4"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_random_selector.gd" id="16_nwklx"]
 [ext_resource type="Script" path="res://Addings/Farts/bts/leafs/bt_leaf_speak.gd" id="17_exky8"]
@@ -394,6 +394,10 @@ next_state = NodePath("../../Move")
 script = ExtResource("10_7mix7")
 next_state = NodePath("../../FSMBT")
 
+[node name="ToStuck" type="Node" parent="FSM/Idle" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_a13s7")
+next_state = NodePath("../../Stuck")
+
 [node name="Target" type="Node" parent="FSM"]
 script = ExtResource("9_n3e2m")
 
@@ -415,7 +419,7 @@ script = ExtResource("9_rfftv")
 script = ExtResource("12_uf31i")
 next_state = NodePath("../../Idle")
 
-[node name="MoveToStuck" type="Node" parent="FSM/Move" node_paths=PackedStringArray("next_state")]
+[node name="ToStuck" type="Node" parent="FSM/Move" node_paths=PackedStringArray("next_state")]
 script = ExtResource("13_a13s7")
 next_state = NodePath("../../Stuck")
 

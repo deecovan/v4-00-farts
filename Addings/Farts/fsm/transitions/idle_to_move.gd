@@ -15,7 +15,7 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 	pass
 
 
-## ??? If the random idle timer has been exceeded
+## ?## 100% on 3..6s idle
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
 	if (actor.velocity.length() < actor.speed / 2 
 		and actor.timer > 6 - randf() * 3
