@@ -348,7 +348,10 @@ hframes = 9
 vframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 555
+scale = Vector2(0.75, 0.75)
 shape = SubResource("CircleShape2D_b26gw")
+debug_color = Color(1, 0.6, 0.701961, 0.419608)
 
 [node name="Sens" type="Area2D" parent="."]
 scale = Vector2(10, 10)
