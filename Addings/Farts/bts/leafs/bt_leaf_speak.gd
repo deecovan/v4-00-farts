@@ -35,7 +35,6 @@ func start_actor_logic(
 	_timer: float, actor: Node, _blackboard: Blackboard) -> void:
 	print (actor.name, " is Speaking...")
 	actor.reset_to_idle(2)
-	actor.particles.color = actor.color / 2
-	actor.sounds.play_random()
+	actor.particles.color = actor.color / 2 
 	actor.animations.play("Speak")
 	

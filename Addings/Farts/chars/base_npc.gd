@@ -162,3 +162,18 @@ func get_fsm_state(state_name: StringName) -> FSMState:
 			return(found_state)
 	## if not found return initial as defined
 	return state_machine.initial_state
+
+
+func _on_sens_body_entered(body: Node2D) -> void:
+	if (body.is_in_group("NPC") 
+	and body.animations.is_playing() 
+	and body.animations.current_animation == "Speak"):
+		print(name, " is hearing ", body.name, " speak ", body.color)
+		diffuse_update_color(self, body.color)
+
+
+func diffuse_update_color(body:CharacterBody2D, add_color:Color) -> void:
+	body.color = (body.color + add_color) / 2
+	$Sprite2D.self_modulate = body.color
+	$Cross.default_color = body.color * 0.6
+	
