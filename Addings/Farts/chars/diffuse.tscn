@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv1hns07p3v2"]
+
+[ext_resource type="Script" path="res://Addings/Farts/chars/diffuse.gd" id="1_3nqht"]
+
+[node name="Diffuse" type="Node2D"]
+z_index = 555
+script = ExtResource("1_3nqht")
+
+[node name="Square" type="Polygon2D" parent="."]
+color = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)

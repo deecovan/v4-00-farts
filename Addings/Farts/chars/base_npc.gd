@@ -21,6 +21,7 @@ var sounds : AudioStreamPlayer2D
 var color : Color
 
 
+
 func _init() -> void:
 	print(name, " ready: ", set_color(pick_random_color()))
 
@@ -188,15 +189,18 @@ func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> int:
 		+ Color(add_color_arr[0],add_color_arr[1],add_color_arr[2]))
 	print(name, " is painted by ", add_color_arr, " to ", color_to)
 	paint_color(body, color_to)
-	return Vector3(
+	return int(Vector3(
 			add_color_arr[0],add_color_arr[1],add_color_arr[2]
-			).length()
+			).length())
 	
 
 func start_diffuse_animation(
 	from:CharacterBody2D, to:CharacterBody2D, amount:int) -> void:
-	for i in amount:
-		pass
+	var square = find_child("Diffuse")
+	square.from = from
+	square.to = to
+	square.amount = amount
+	pass
 
 
 func normalize_color(raw_color: Color) -> Color:
@@ -222,3 +226,4 @@ func paint_color(body:CharacterBody2D, new_color:Color) -> void:
 	body.find_child("Particles").color =  new_color * 0.8
 	body.find_child("Cross").default_color = new_color * 0.8
 	body.find_child("Cross").hide()
+	body.find_child("Square").hide()
