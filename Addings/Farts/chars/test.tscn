@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://Addings/Farts/chars/test.gd" id="1_ch8d8"]
 
 [node name="Test" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
 script = ExtResource("1_ch8d8")
 
 [node name="Camera2D" type="Camera2D" parent="."]

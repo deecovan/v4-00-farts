@@ -1,7 +1,6 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
 func _draw() -> void:
 
 	var from_pos = randi_range(-200,200)
@@ -15,7 +14,6 @@ func _draw() -> void:
 		var color = Color.CORAL
 		polygon.draw_colored_polygon(sqarray, color)
 		add_child(polygon)
-		pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
