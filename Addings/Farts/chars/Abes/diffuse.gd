@@ -11,6 +11,7 @@ extends Node2D
 			amount = 0
 		else:
 			amount = value
+var square_array: Array
 
 
 func _ready() -> void:
@@ -18,18 +19,29 @@ func _ready() -> void:
 	square = $Square
 	from = $from
 	to = $to
-
+	for i in amount:
+		var square_node = square.duplicate()
+		square_array.append(square_node)
+		self.add_child(square_node)
+		square_node.add_to_group("diffuse")
+		square_node.global_position += Vector2(randf_range(-20,20),randf_range(-20,20))
+		square_node.show()
 
 func _process(delta: float) -> void:
+	timer += delta
 	if(amount > 0 and from != null and to != null):
-		print(from)
-		square.show()
-		var coords: Vector2
-		coords = lerp(
-			from.global_position, to.global_position, timer * amount)
-		square.global_position = coords
-		timer += delta
+		var i := 0
+		for child in get_children():
+			i += 1
+			if child.is_in_group("diffuse"):
+				var coords: Vector2
+				coords = lerp(
+					from.global_position, to.global_position, 
+					amount * i)
+				square.global_position = coords
+				timer += delta
+			## Delete if more squares than amount
+			if i > amount:
+				child.queue_free()
 		amount -= 1
-	else:
-		square.hide()
 		
