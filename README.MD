@@ -16,7 +16,8 @@
 	- Deploy FSMBT Enter, Speak/Listen and Exit
 - :) Add juicy sounds, music and CPU particles to the Speak state
 - Deploy Diffusion animation via Modular Ability 
-- START deploy elections:
+
+- Implement elections:
 	- Add Election counter progression based on Colorize quantity
 	- Deploy Election State, transitions and BT
 	- Create Boss elected and Global Target set
