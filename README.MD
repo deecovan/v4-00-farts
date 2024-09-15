@@ -15,9 +15,8 @@
 - Start deploy BT's with Speakers/Listeners
 	- Deploy FSMBT Enter, Speak/Listen and Exit
 - :) Add juicy sounds, music and CPU particles to the Speak state
-- Deploy Collor Diffusion on NPC Hear Speaks and Persuit on Listen
+- Deploy Diffusion animation via Modular Ability 
 - START deploy elections:
-	- Implement Colorize animation
 	- Add Election counter progression based on Colorize quantity
 	- Deploy Election State, transitions and BT
 	- Create Boss elected and Global Target set
