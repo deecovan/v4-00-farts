@@ -19,7 +19,7 @@ var animations : AnimationPlayer
 var particles : CPUParticles2D
 var sounds : AudioStreamPlayer2D
 var color : Color
-
+var abes : Array
 
 
 func _init() -> void:
@@ -172,11 +172,40 @@ func _on_sens_body_entered(body: Node2D) -> void:
 	and body.animations.is_playing() 
 	and body.animations.current_animation == "Speak"):
 		print(name, " is hearing ", body.name, " speak ", body.color)
-		start_diffuse_animation(body, self, 
-			diffuse_rand_color(self, body.color))
+		var color_vector = diffuse_rand_color(self, body.color)
+		var color_amount = int(color_vector.length())
+		
+	## \\ from here Abes\Pawns code
+		## Call attachable.execute()
+		var args: Dictionary
+		args.from = body
+		args.to = self
+		args.color = Color(color_vector)
+		args.amount = color_amount
+		var res = abes[0].execute(args)
+		## Print the answer result
+		if res != {}:
+			print(res)
+	
+	
+func attachable(abe_name: StringName, args: Array = []) -> Node:
+	## Instantiate ability
+	var fname := "res://Addings/Abes/Abilities/" + abe_name + "/" + abe_name
+	var scene = load(fname + ".tscn")
+	var script = load(fname + ".gd")
+	var instance: Node2D = scene.instantiate()
+	add_child(instance)
+	## Setting up an instance and script
+	instance.set_script(script)
+	## Force calling _process()
+	instance.set_process(true)
+	print("Node \"", name, "\" attached ", abe_name, args)
+	print (instance)
+	return instance
+	## // to here Abes/Pawns code
 
 
-func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> int:
+func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> Vector3:
 	## Iterate colors and randomly clear RGB
 	var add_color_arr = [add_color.r, add_color.g, add_color.b]
 	var add_base_arr  = ["r", "g", "b"]
@@ -189,10 +218,7 @@ func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> int:
 		+ Color(add_color_arr[0],add_color_arr[1],add_color_arr[2]))
 	print(name, " is painted by ", add_color_arr, " to ", color_to)
 	paint_color(body, color_to)
-	return int(Vector3(
-			add_color_arr[0],add_color_arr[1],add_color_arr[2]
-			).length())
-
+	return Vector3(add_color_arr[0],add_color_arr[1],add_color_arr[2])
 
 
 func normalize_color(raw_color: Color) -> Color:
