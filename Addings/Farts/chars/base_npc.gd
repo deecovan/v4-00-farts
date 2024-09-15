@@ -24,6 +24,8 @@ var abes : Array
 
 func _init() -> void:
 	print(name, " ready: ", set_color(pick_random_color()))
+	## Append attachable
+	abes.append(attachable("Diffuse"))
 
 
 func _physics_process(delta: float) -> void:
@@ -172,15 +174,15 @@ func _on_sens_body_entered(body: Node2D) -> void:
 	and body.animations.is_playing() 
 	and body.animations.current_animation == "Speak"):
 		print(name, " is hearing ", body.name, " speak ", body.color)
-		var color_vector = diffuse_rand_color(self, body.color)
-		var color_amount = int(color_vector.length())
+		var color_vector = diffuse_rand_color(self, body.color).normalized()
+		var color_amount = int(color_vector.length() * 10)
 		
 	## \\ from here Abes\Pawns code
 		## Call attachable.execute()
 		var args: Dictionary
 		args.from = body
 		args.to = self
-		args.color = Color(color_vector)
+		args.color = Color(color_vector.x, color_vector.y, color_vector.z)
 		args.amount = color_amount
 		var res = abes[0].execute(args)
 		## Print the answer result

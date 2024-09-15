@@ -2,7 +2,8 @@ extends Node2D
 
 
 ## Variables
-var diffuse_speed = 5.0
+var rng := 100.0
+var diffuse_speed := 5.0
 var square: Polygon2D = find_child("Square")
 ## Cooldown timer
 var timer: Timer
@@ -32,7 +33,8 @@ func execute(args: Dictionary) -> Dictionary:
 		add_child(square_node)
 		square_node.add_to_group("diffuse")
 		square_node.color = color
-		square_node.global_position += Vector2(randf_range(-32,32),randi_range(-32,32))
+		square_node.global_position += (
+			Vector2(randf_range(-rng, rng), randf_range(-rng, rng)))
 		square_node.show()
 	## Return result
 	res.name = to
@@ -49,12 +51,14 @@ func _process(delta: float) -> void:
 		for child in get_children():
 			if child.is_in_group("diffuse"):
 				## If the destination is reached
-				if (child.global_position - to.global_position).length() < 64:
-					child.queue_free()
+				if (
+					child.global_position - (to.global_position )
+					).length() < 4:
+						child.queue_free()
 				else:
 					## Move manually because move_and_slide does not exist
 					child.global_position = lerp(
-						child.global_position, to.global_position, 
+						child.global_position, (to.global_position), 
 						(randf() * diffuse_speed * delta))
 
 ## Create and start a timer manually
