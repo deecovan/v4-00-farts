@@ -18,8 +18,12 @@ var state_machine : FiniteStateMachine
 var animations : AnimationPlayer
 var particles : CPUParticles2D
 var sounds : AudioStreamPlayer2D
-var color : Color
 var abes : Array
+var lead_vector := Vector3.ZERO
+var color : Color:
+	set(val):
+		paint_color(self, val)
+		color = val
 
 
 func _init() -> void:
@@ -41,6 +45,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	
+	
 func set_color(mod_color: Color) -> Color:
 	## Use one base color and add random Vector3 RGB
 	var base_colors := [
@@ -52,7 +57,7 @@ func set_color(mod_color: Color) -> Color:
 		Color.BLUE
 		]
 	var color_to = normalize_color(mod_color + base_colors.pick_random())
-	paint_color(self, color_to)
+	color = color_to
 	return color_to
 
 
@@ -176,6 +181,19 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		print(name, " is hearing ", body.name, " speak ", body.color)
 		var color_vector = diffuse_rand_color(self, body.color).normalized()
 		var color_amount = int(color_vector.length() * 10 + 5)
+		body.lead_vector += color_vector
+		print(body.name, " lead_vector is ", body.lead_vector, 
+		" (%s)" % body.lead_vector.length())
+		if body.lead_vector.length() > 10:
+			print (body.name, " ELECTED!!!")
+			body.scale.x = body.lead_vector.length() / 10
+			body.scale.y = body.lead_vector.length() / 10
+		if body.lead_vector.length() > 20:
+			print (body.name, " OVERPOWERED!!!")
+			body.lead_vector = Vector3.ZERO
+			body.color = Color.BLACK
+			body.scale.x = 1
+			body.scale.y = 1
 		
 	## \\ from here Abes\Pawns code
 		## Call attachable.execute()
@@ -219,7 +237,7 @@ func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> Vector3:
 	var color_to = normalize_color(body.color 
 		+ Color(add_color_arr[0],add_color_arr[1],add_color_arr[2]))
 	print(name, " is painted by ", add_color_arr, " to ", color_to)
-	paint_color(body, color_to)
+	body.color = color_to
 	return Vector3(add_color_arr[0],add_color_arr[1],add_color_arr[2])
 
 
@@ -236,12 +254,6 @@ func normalize_color(raw_color: Color) -> Color:
 
 
 func paint_color(body:CharacterBody2D, new_color:Color) -> void:
-	## Test root NPC with always red
-	if body.name == "BaseNPC":
-		print("---TEST-PAUSE-HERE---")
-		new_color = Color.RED
-		body.color = new_color
-	body.color = new_color
 	body.find_child("Sprite2D").modulate = new_color
 	body.find_child("Particles").color =  new_color * 0.8
 	body.find_child("Cross").default_color = new_color * 0.8
