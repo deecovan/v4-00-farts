@@ -175,7 +175,7 @@ func _on_sens_body_entered(body: Node2D) -> void:
 	and body.animations.current_animation == "Speak"):
 		print(name, " is hearing ", body.name, " speak ", body.color)
 		var color_vector = diffuse_rand_color(self, body.color).normalized()
-		var color_amount = int(color_vector.length() * 10)
+		var color_amount = int(color_vector.length() * 10 + 5)
 		
 	## \\ from here Abes\Pawns code
 		## Call attachable.execute()
