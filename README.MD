@@ -21,4 +21,3 @@
 	- Add Election counter progression based on Colorize quantity
 	- Deploy Election State, transitions and BT
 	- Create Boss elected and Global Target set
-
