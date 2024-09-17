@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export var dexta := 5.0
 @export var speed := 200.0 * 50 /Engine.physics_ticks_per_second
 @export var shift := 400.0 * 50 /Engine.physics_ticks_per_second
+@export var lead_vector := Vector3.ZERO
+@export var state : StringName
 
 
 var tile_size: Vector2
@@ -19,7 +21,6 @@ var animations : AnimationPlayer
 var particles : CPUParticles2D
 var sounds : AudioStreamPlayer2D
 var abes : Array
-var lead_vector := Vector3.ZERO
 var color : Color:
 	set(val):
 		paint_color(self, val)
@@ -155,6 +156,8 @@ func reset_to_target(target_body: CharacterBody2D) -> void:
 	
 	
 func reset_to_state(fsm_state: StringName) -> void:
+	animations.play("RESET")
+	state = fsm_state
 	state_machine.change_state(get_fsm_state(fsm_state))
 	
 	
@@ -173,7 +176,7 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		print(name, " is hearing ", body.name, " speak ", body.color)
 		var color_vector = diffuse_rand_color(self, body.color).normalized()
 		var color_amount = int(color_vector.length() * 10 + 5)
-		body.lead_vector += color_vector
+		body.lead_vector += color_vector * 5 # !!! Force debug
 		print(body.name, " lead_vector is ", body.lead_vector, 
 		" (%s)" % body.lead_vector.length())
 		if body.lead_vector.length() > 10:

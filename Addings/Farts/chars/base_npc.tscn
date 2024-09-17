@@ -497,6 +497,10 @@ script = ExtResource("11_q4nlu")
 script = ExtResource("12_rittn")
 next_state = NodePath("../../Idle")
 
+[node name="ToStuck" type="Node" parent="FSM/Success" node_paths=PackedStringArray("next_state")]
+script = ExtResource("13_a13s7")
+next_state = NodePath("../../Stuck")
+
 [node name="Move" type="Node" parent="FSM"]
 script = ExtResource("9_rfftv")
 
