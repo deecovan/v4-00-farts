@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://c8cefweylec5b"]
+[gd_scene load_steps=11 format=4 uid="uid://c8cefweylec5b"]
 
 [ext_resource type="Script" path="res://Addings/Farts/world.gd" id="1_nebxg"]
 [ext_resource type="Texture2D" uid="uid://dhgyvaq21lqic" path="res://Addings/Farts/art/static/squares.png" id="2_iqj61"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://Addings/Farts/Chars/base_npc.gd" id="4_jdka1"]
 [ext_resource type="PackedScene" uid="uid://b28mcglj74pf3" path="res://Addings/Astar/Astar.tscn" id="4_vi8pi"]
 [ext_resource type="Script" path="res://Addings/Astar/astar.gd" id="5_jrhdq"]
+[ext_resource type="PackedScene" uid="uid://w5nuo6sp8cdy" path="res://Addings/Farts/art/audio/parts/player.tscn" id="7_u3l8v"]
+[ext_resource type="Script" path="res://Addings/Farts/art/audio/parts/player.gd" id="8_rjlbj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s75vj"]
 texture = ExtResource("2_iqj61")
@@ -39,3 +41,6 @@ tile_set = SubResource("TileSet_kegr3")
 
 [node name="Astar" parent="World" instance=ExtResource("4_vi8pi")]
 script = ExtResource("5_jrhdq")
+
+[node name="Player" parent="World" instance=ExtResource("7_u3l8v")]
+script = ExtResource("8_rjlbj")

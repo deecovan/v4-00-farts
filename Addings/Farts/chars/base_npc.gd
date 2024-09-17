@@ -182,7 +182,7 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		print(name, " is hearing ", body.name, " speak ", body.color)
 		var color_vector = diffuse_rand_color(self, body.color).normalized()
 		var color_amount = int(color_vector.length() * 10 + 5)
-		body.lead_vector += color_vector * 5 # !!!@HERE Force debug
+		body.lead_vector += color_vector * 4
 		print(body.name, " lead_vector is ", body.lead_vector, 
 		" (%s) !!!" % body.lead_vector.length())
 		## Confirm or dismiss the Leader
