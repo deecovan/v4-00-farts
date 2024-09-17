@@ -5,20 +5,18 @@
 - Deploy NPC's movement
 - Deploy NPC's instantiation
 - Deploy main BehaviourToolkit features:
-	- BTSelector with 2 Leafs
-	- FSM with basic idle/move/stuck states and transitions
+- BTSelector with 2 Leafs
+- FSM with basic idle/move/stuck states and transitions
 - Describe States and remove redundant logic
 - Final poke FSM with Idle/Move/Stuck
-	- FSM States/Transitions and NPC's Physics process
-	- Deploy reset_to_state method in NPCs with forced Timer and State
-	- Link FSM into NPCs via child.state_machine child.find_child(FSM)
+- FSM States/Transitions and NPC's Physics process
+- Deploy reset_to_state method in NPCs with forced Timer and State
+- Link FSM into NPCs via child.state_machine child.find_child(FSM)
 - Start deploy BT's with Speakers/Listeners
-	- Deploy FSMBT Enter, Speak/Listen and Exit
+- Deploy FSMBT Enter, Speak/Listen and Exit
 - :) Add juicy sounds, music and CPU particles to the Speak state
 - Deploy Diffusion animation via Modular Ability 
-
-- Implement elections:
-	- Add Election counter progression based on Colorize quantity
-	- Deploy Election State, transitions and BT
-	- Create Boss elected and Global Target set
+- Add Election counter progression based on Colorize quantity
+	- Deploy Election State and transitions
+	- Create Global Target set
 
