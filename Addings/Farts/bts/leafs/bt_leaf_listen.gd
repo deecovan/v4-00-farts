@@ -36,9 +36,21 @@ func start_actor_logic(_timer: float, actor: Node, _blackboard: Blackboard) -> v
 	## Otherway find random NPC as the target
 	var world = actor.get_parent()
 	for world_child in world.get_children():
-		if (world_child != actor and world_child.is_in_group("NPC") 
-		and world_child.animations.get_current_animation() == "Speak"):
-			print ("...found Speaking: ", world_child.name, 
+		if (world_child.is_in_group("NPC") 
+		and world_child != actor 
+		and (
+			## Is speaking
+			world_child.animations.get_current_animation() == "Speak"
+			## OR is the Leader
+			or world_child.leader
+			)
+		):
+			var t = ""
+			if world_child.leader: 
+				t = "...Found LEADER!!!"
+			else:
+				t = "...Found Speaking"
+			print (t, ": ", world_child.name, 
 			" at ", world_child.global_position)
 			## Set world_child as current target to start Move
 			actor.reset_to_target(world_child)

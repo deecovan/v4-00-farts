@@ -121,8 +121,6 @@ func update_current_target() -> bool:
 		reset_to_state("Success")
 		return false
 	else:
-		print(name, " Updated target: ", target_obj.name, 
-		" moves to: ", astar_array.size())
 		return true
 	
 	
@@ -189,13 +187,9 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		" (%s) !!!" % body.lead_vector.length())
 		
 		if body.lead_vector.length() > 20:
-			body.scale.x = 1
-			body.scale.y = 1
 			if dismiss_leader(self):
 				print (body.name, " DISMISSED!!!")
 		elif body.lead_vector.length() > 10:
-			body.scale.x = body.lead_vector.length() / 10
-			body.scale.y = body.lead_vector.length() / 10
 			if confirm_leader(self):
 				print (body.name, " CONFIRMED!!!")
 		
@@ -204,6 +198,9 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		args.from = body
 		args.to = self
 		args.color = Color(color_vector.x, color_vector.y, color_vector.z)
+		if args.color == Color.BLACK:
+			## Fix the BLACK!
+			args.color = Color.SLATE_GRAY
 		args.amount = color_amount
 		var res = abes[0].execute(args)
 		## Print the answer result
@@ -213,19 +210,23 @@ func _on_sens_body_entered(body: Node2D) -> void:
 			
 func confirm_leader(body: CharacterBody2D) -> bool:
 	if body.leader:
-		print(body.name, " is already the Leader!!!")
+		print(body.name, " NOT Confirmed!!! Already is the Leader")
 		return false
-	var found_leaders := find_leaders()
-	if found_leaders > 0:
+	if find_leaders() > 0:
+		print(body.name, " NOT Confirmed!!! Already has the Leader")
 		return false
+	body.scale = Vector2(2,2)
 	body.self_as_leader(true)
+	print(body.name, " Confirmed!!!")
 	return body.leader
 	
 	
 func dismiss_leader(body: CharacterBody2D) -> bool:
-	body.self_as_leader(false)
 	body.lead_vector = Vector3.ZERO
-	body.color = Color.BLACK
+	body.color = Color.LIGHT_SLATE_GRAY
+	body.scale = Vector2(1,1)
+	body.self_as_leader(false)
+	print(body.name, " Dismissed!!!")
 	return body.leader
 	
 	
