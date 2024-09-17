@@ -81,7 +81,6 @@ func get_input(delta) -> Vector2:
 		position +=  normal * dexta + Vector2(
 			randi_range(-8,8),randi_range(-8,8))
 		velocity = Vector2.ZERO
-		#print("Boom! ", name, " at ", position)
 		reset_to_idle()
 		
 	return velocity_to
@@ -189,16 +188,16 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		print(body.name, " lead_vector is ", body.lead_vector, 
 		" (%s) !!!" % body.lead_vector.length())
 		
-		if body.lead_vector.length() > 10:
-			body.scale.x = body.lead_vector.length() / 10
-			body.scale.y = body.lead_vector.length() / 10
-			if confirm_leader(self):
-				print (body.name, " CONFIRMED!!!")
 		if body.lead_vector.length() > 20:
 			body.scale.x = 1
 			body.scale.y = 1
 			if dismiss_leader(self):
 				print (body.name, " DISMISSED!!!")
+		elif body.lead_vector.length() > 10:
+			body.scale.x = body.lead_vector.length() / 10
+			body.scale.y = body.lead_vector.length() / 10
+			if confirm_leader(self):
+				print (body.name, " CONFIRMED!!!")
 		
 		## Call attachable.execute()
 		var args: Dictionary
@@ -218,7 +217,6 @@ func confirm_leader(body: CharacterBody2D) -> bool:
 		return false
 	var found_leaders := find_leaders()
 	if found_leaders > 0:
-		print("Found the Leaders!!! ", found_leaders)
 		return false
 	body.self_as_leader(true)
 	return body.leader
@@ -234,8 +232,6 @@ func dismiss_leader(body: CharacterBody2D) -> bool:
 func self_as_leader(flag) -> void:
 	self.leader = flag
 	self.find_child("Leader").visible = flag
-	print("!!! Flag set: ", self.name, ": ", 
-	self.find_child("Leader").visible)
 	
 	
 func find_leaders() -> int:

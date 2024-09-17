@@ -19,7 +19,6 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
 	if actor.animations.current_animation == "Speak" and actor.timer < 6:
 		return false
-	#print(actor.name, " exiting  FSMBT")
 	return true
 
 

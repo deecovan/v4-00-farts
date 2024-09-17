@@ -38,9 +38,6 @@ func get_astar_path(from_position, to_position) -> Array:
 			static_tile_size / 2
 			)
 		arr_pos.append(pos)
-	#Test this sht
-	#print(from, to)
-	#print(arr_ids)
 	return arr_pos
 
 ## Find obstacles via get_collision_polygons_count for each tile
