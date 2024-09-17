@@ -174,7 +174,12 @@ func get_fsm_state(state_name: StringName) -> FSMState:
 
 
 func _on_sens_body_entered(body: Node2D) -> void:
-	if (body.is_in_group("NPC") 
+	if (
+	## @TODO need BT here:
+	## - if not Leader: hear to someone Speaking
+	## - else do something with someone's entered the sens area
+	not self.leader
+	and body.is_in_group("NPC") 
 	and body.animations.is_playing() 
 	and body.animations.current_animation == "Speak"):
 		print(name, " is hearing ", body.name, " speak ", body.color)
@@ -182,12 +187,16 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		var color_amount = int(color_vector.length() * 10 + 5)
 		body.lead_vector += color_vector * 5 # !!!@HERE Force debug
 		print(body.name, " lead_vector is ", body.lead_vector, 
-		" (%s) " % body.lead_vector.length(), " !!!")
+		" (%s) !!!" % body.lead_vector.length())
 		
 		if body.lead_vector.length() > 10:
+			body.scale.x = body.lead_vector.length() / 10
+			body.scale.y = body.lead_vector.length() / 10
 			if confirm_leader(self):
 				print (body.name, " CONFIRMED!!!")
 		if body.lead_vector.length() > 20:
+			body.scale.x = 1
+			body.scale.y = 1
 			if dismiss_leader(self):
 				print (body.name, " DISMISSED!!!")
 		
@@ -209,26 +218,24 @@ func confirm_leader(body: CharacterBody2D) -> bool:
 		return false
 	var found_leaders := find_leaders()
 	if found_leaders > 0:
-		print("Found leaders!!! ", found_leaders)
+		print("Found the Leaders!!! ", found_leaders)
 		return false
-	body.set_as_leader(true)
-	body.scale.x = body.lead_vector.length() / 10
-	body.scale.y = body.lead_vector.length() / 10
+	body.self_as_leader(true)
 	return body.leader
 	
 	
 func dismiss_leader(body: CharacterBody2D) -> bool:
-	body.set_as_leader(false)
+	body.self_as_leader(false)
 	body.lead_vector = Vector3.ZERO
 	body.color = Color.BLACK
-	body.scale.x = 1
-	body.scale.y = 1
 	return body.leader
 	
 	
-func set_as_leader(flag) -> void:
-	leader = flag
-	find_child("Leader").visible = flag
+func self_as_leader(flag) -> void:
+	self.leader = flag
+	self.find_child("Leader").visible = flag
+	print("!!! Flag set: ", self.name, ": ", 
+	self.find_child("Leader").visible)
 	
 	
 func find_leaders() -> int:
