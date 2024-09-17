@@ -20,8 +20,10 @@ func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	if timer == null or randf() > 0.5:
 		return BTStatus.FAILURE
 		
-	## Else start actor's logic in 1%3 ticks
-	if bt_tick % 3 == 2 and actor.lead_vector.length() < 10:
+	## Else start actor's logic in 2%3 ticks
+	if (bt_tick % 3 >= 1 
+	and actor.lead_vector.length() < 10
+	):
 		start_actor_logic(timer, actor, blackboard)
 	
 	## Update ticker and exit with SUCCESS
