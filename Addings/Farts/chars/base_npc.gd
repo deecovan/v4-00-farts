@@ -228,11 +228,14 @@ func dismiss_leader(body: CharacterBody2D) -> void:
 	body.color = Color.LIGHT_SLATE_GRAY
 	body.scale = Vector2(1,1)
 	self_as_leader(false)
+	self.leader = false
+	self.find_child("Leader").visible = false
 	
 ## WTF???
-func self_as_leader(flag) -> void:
-	self.leader = flag
-	self.find_child("Leader").visible = flag
+func self_as_leader(val:bool) -> void:
+	self.leader = val
+	self.find_child("Leader").visible = val
+	print_debug (self, val)
 	
 	
 func find_leaders() -> int:
