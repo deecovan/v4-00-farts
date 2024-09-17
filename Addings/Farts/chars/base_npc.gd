@@ -187,10 +187,10 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		" (%s) !!!" % body.lead_vector.length())
 		## Confirm or dismiss the Leader
 		if body.lead_vector.length() > 20:
-			if dismiss_leader(self):
+			if dismiss_leader(body):
 				print (body.name, " DISMISSED!!!")
 		elif body.lead_vector.length() > 10:
-			if confirm_leader(self):
+			if confirm_leader(body):
 				print (body.name, " CONFIRMED!!!")
 		## Call attachable.execute()
 		var args: Dictionary
@@ -209,14 +209,13 @@ func _on_sens_body_entered(body: Node2D) -> void:
 			
 func confirm_leader(body: CharacterBody2D) -> bool:
 	if body.leader:
-		print(body.name, " NOT Confirmed!!! Already is the Leader")
+		print(body.name, " NOT CONFIRMED!!! Already is the Leader")
 		return false
 	if find_leaders() > 0:
-		print(body.name, " NOT Confirmed!!! Already has the Leader")
+		print(body.name, " NOT CONFIRMED!!! Already has the Leader")
 		return false
 	body.scale = Vector2(2,2)
 	body.self_as_leader(true)
-	print(body.name, " Confirmed!!!")
 	return body.leader
 	
 	
@@ -225,7 +224,6 @@ func dismiss_leader(body: CharacterBody2D) -> bool:
 	body.color = Color.LIGHT_SLATE_GRAY
 	body.scale = Vector2(1,1)
 	body.self_as_leader(false)
-	print(body.name, " Dismissed!!!")
 	return body.leader
 	
 	
