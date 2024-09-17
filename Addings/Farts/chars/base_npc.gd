@@ -1,10 +1,14 @@
 extends CharacterBody2D
 
+
 @export var dexta := 5.0
 @export var speed := 200.0 * 50 /Engine.physics_ticks_per_second
 @export var shift := 400.0 * 50 /Engine.physics_ticks_per_second
 @export var lead_vector := Vector3.ZERO
 @export var state : StringName
+
+
+var leader := false
 
 
 var tile_size: Vector2
@@ -178,19 +182,15 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		var color_amount = int(color_vector.length() * 10 + 5)
 		body.lead_vector += color_vector * 5 # !!!@HERE Force debug
 		print(body.name, " lead_vector is ", body.lead_vector, 
-		" (%s)" % body.lead_vector.length())
-		if body.lead_vector.length() > 10:
-			print (body.name, " ELECTED!!!")
-			body.scale.x = body.lead_vector.length() / 10
-			body.scale.y = body.lead_vector.length() / 10
-		if body.lead_vector.length() > 20:
-			print (body.name, " OVERPOWERED!!!")
-			body.lead_vector = Vector3.ZERO
-			body.color = Color.BLACK
-			body.scale.x = 1
-			body.scale.y = 1
+		" (%s) " % body.lead_vector.length(), " !!!")
 		
-	## \\ from here Abes\Pawns code
+		if body.lead_vector.length() > 10:
+			if confirm_leader(self):
+				print (body.name, " CONFIRMED!!!")
+		if body.lead_vector.length() > 20:
+			if dismiss_leader(self):
+				print (body.name, " DISMISSED!!!")
+		
 		## Call attachable.execute()
 		var args: Dictionary
 		args.from = body
@@ -201,7 +201,44 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		## Print the answer result
 		if res != {}:
 			print(res)
+			
+			
+func confirm_leader(body: CharacterBody2D) -> bool:
+	if body.leader:
+		print(body.name, " is already the Leader!!!")
+		return false
+	var found_leaders := find_leaders()
+	if found_leaders > 0:
+		print("Found leaders!!! ", found_leaders)
+		return false
+	body.set_as_leader(true)
+	body.scale.x = body.lead_vector.length() / 10
+	body.scale.y = body.lead_vector.length() / 10
+	return body.leader
 	
+	
+func dismiss_leader(body: CharacterBody2D) -> bool:
+	body.set_as_leader(false)
+	body.lead_vector = Vector3.ZERO
+	body.color = Color.BLACK
+	body.scale.x = 1
+	body.scale.y = 1
+	return body.leader
+	
+	
+func set_as_leader(flag) -> void:
+	leader = flag
+	find_child("Leader").visible = flag
+	
+	
+func find_leaders() -> int:
+	var leaders_count := 0
+	for child in get_parent().get_children():
+		## Check is it new NPC
+		if child.is_in_group("NPC") and child.leader == true:
+			leaders_count += 1
+	return leaders_count
+
 	
 func attachable(abe_name: StringName, args: Array = []) -> Node:
 	## Instantiate ability
@@ -217,7 +254,6 @@ func attachable(abe_name: StringName, args: Array = []) -> Node:
 	print("Node \"", name, "\" attached ", abe_name, args)
 	print (instance)
 	return instance
-	## // to here Abes/Pawns code
 
 
 func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> Vector3:

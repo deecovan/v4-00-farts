@@ -406,6 +406,7 @@ autoplay = "Idle"
 speed_scale = 2.0
 
 [node name="Particles" type="CPUParticles2D" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_v7b26")
 position = Vector2(0, 24)
 emitting = false
@@ -433,7 +434,15 @@ texture = ExtResource("2_kncas")
 hframes = 9
 vframes = 7
 
+[node name="Leader" type="Polygon2D" parent="Sprite2D"]
+z_index = 600
+position = Vector2(0, 2)
+color = Color(1, 1, 1, 0.6)
+antialiased = true
+polygon = PackedVector2Array(-24, -24, -24, -32, -18, -37, 18, -37, 24, -32, 24, -24, 18, -19, -18, -19)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 z_index = 555
 scale = Vector2(0.75, 0.75)
 shape = SubResource("CircleShape2D_b26gw")
