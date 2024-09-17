@@ -180,15 +180,18 @@ func _on_sens_body_entered(body: Node2D) -> void:
 	and body.animations.is_playing() 
 	and body.animations.current_animation == "Speak"):
 		print(name, " is hearing ", body.name, " speak ", body.color)
+		
 		var color_vector = diffuse_rand_color(self, body.color).normalized()
 		var color_amount = int(color_vector.length() * 10 + 5)
+		
 		body.lead_vector += color_vector * 4
 		print(body.name, " lead_vector is ", body.lead_vector, 
 		" (%s) !!!" % body.lead_vector.length())
+		
 		## Confirm or dismiss the Leader
 		if body.lead_vector.length() > 20:
-			if dismiss_leader(body):
-				print (body.name, " DISMISSED!!!")
+			dismiss_leader(body)
+			print (body.name, " DISMISSED!!!")
 		elif body.lead_vector.length() > 10:
 			if confirm_leader(body):
 				print (body.name, " CONFIRMED!!!")
@@ -215,18 +218,18 @@ func confirm_leader(body: CharacterBody2D) -> bool:
 		print(body.name, " NOT CONFIRMED!!! Already has the Leader")
 		return false
 	body.scale = Vector2(2,2)
-	body.self_as_leader(true)
+	body.leader = true
+	body.find_child("Leader").visible = true
 	return body.leader
 	
 	
-func dismiss_leader(body: CharacterBody2D) -> bool:
+func dismiss_leader(body: CharacterBody2D) -> void:
 	body.lead_vector = Vector3.ZERO
 	body.color = Color.LIGHT_SLATE_GRAY
 	body.scale = Vector2(1,1)
-	body.self_as_leader(false)
-	return body.leader
+	self_as_leader(false)
 	
-	
+## WTF???
 func self_as_leader(flag) -> void:
 	self.leader = flag
 	self.find_child("Leader").visible = flag
