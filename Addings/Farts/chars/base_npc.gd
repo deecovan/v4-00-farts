@@ -78,9 +78,6 @@ func get_input(delta) -> Vector2:
 		velocity = Vector2.ZERO
 		#print("Boom! ", name, " at ", position)
 		reset_to_idle()
-
-	if $Cross.default_color == Color.BLACK:
-		print("Color IS BLACK!!! ", name)
 		
 	return velocity_to
 
@@ -117,7 +114,7 @@ func update_current_target() -> bool:
 		print(name, " Reached target: ", target_obj.name, " in time: ",
 		"now" if int(timer) == 0 else "%s" % int(timer))
 		target_obj = null
-		reset_to("Success")
+		reset_to_state("Success")
 		return false
 	else:
 		print(name, " Updated target: ", target_obj.name, 
@@ -143,20 +140,21 @@ func get_static_astar(targeted: Vector2) -> Array:
 	return targeted_astar_array
 
 
+## Reset to minimal timer as default
 func reset_to_idle(from_timer: float = 3.0) -> void:
 	timer = from_timer
 	target = global_position
 	astar_array = []
-	reset_to("Initial")
+	reset_to_state("Initial")
 	
 	
 func reset_to_target(target_body: CharacterBody2D) -> void:
 	target = target_body.global_position
 	target_obj = target_body
-	reset_to("Target")
+	reset_to_state("Target")
 	
 	
-func reset_to(fsm_state: StringName) -> void:
+func reset_to_state(fsm_state: StringName) -> void:
 	state_machine.change_state(get_fsm_state(fsm_state))
 	
 	
@@ -232,7 +230,8 @@ func diffuse_rand_color(body:CharacterBody2D, add_color:Color) -> Vector3:
 		+ Color(add_color_arr[0],add_color_arr[1],add_color_arr[2]))
 	print(name, " is painted by ", add_color_arr, " to ", color_to)
 	body.color = color_to
-	return Vector3(add_color_arr[0],add_color_arr[1],add_color_arr[2])
+	return Vector3(
+		add_color_arr[0],add_color_arr[1],add_color_arr[2]).normalized()
 
 
 func normalize_color(raw_color: Color) -> Color:
