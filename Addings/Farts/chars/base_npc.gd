@@ -38,12 +38,7 @@ func _physics_process(delta: float) -> void:
 	## Stop
 	if velocity.length() < speed / dexta and astar_array.size() < 1:
 		velocity = Vector2.ZERO
-	## Debug 
-	var _name = name
-	var _timer = timer
-	var _state_str = state_machine.active_state.name
 	move_and_slide()
-	
 	
 	
 func set_color(mod_color: Color) -> Color:
@@ -56,9 +51,8 @@ func set_color(mod_color: Color) -> Color:
 		Color.GREEN, 
 		Color.BLUE
 		]
-	var color_to = normalize_color(mod_color + base_colors.pick_random())
-	color = color_to
-	return color_to
+	color = normalize_color(mod_color + base_colors.pick_random())
+	return color
 
 
 func pick_random_color() -> Color:
