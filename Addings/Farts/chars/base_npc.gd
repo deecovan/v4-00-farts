@@ -185,14 +185,13 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		body.lead_vector += color_vector * 5 # !!!@HERE Force debug
 		print(body.name, " lead_vector is ", body.lead_vector, 
 		" (%s) !!!" % body.lead_vector.length())
-		
+		## Confirm or dismiss the Leader
 		if body.lead_vector.length() > 20:
 			if dismiss_leader(self):
 				print (body.name, " DISMISSED!!!")
 		elif body.lead_vector.length() > 10:
 			if confirm_leader(self):
 				print (body.name, " CONFIRMED!!!")
-		
 		## Call attachable.execute()
 		var args: Dictionary
 		args.from = body
@@ -256,7 +255,6 @@ func attachable(abe_name: StringName, args: Array = []) -> Node:
 	## Force calling _process()
 	instance.set_process(true)
 	print("Node \"", name, "\" attached ", abe_name, args)
-	print (instance)
 	return instance
 
 

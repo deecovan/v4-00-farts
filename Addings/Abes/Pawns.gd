@@ -60,5 +60,4 @@ func attachable(abe_name: StringName, args: Array = []) -> Node:
 	## Force calling _process()
 	instance.set_process(true)
 	print("Node \"", name, "\" attached ", abe_name, args)
-	print (instance)
 	return instance

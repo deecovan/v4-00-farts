@@ -56,7 +56,6 @@ func init_npcs() -> void:
 			## Randomise position and target
 			child.set_random_position()
 			child.set_current_target(child.get_random_position())
-			print(child.get_instance_id(), child.global_position, child.target)
 
 
 func _input(_event: InputEvent) -> void:

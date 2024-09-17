@@ -19,8 +19,7 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
 	## goes to Stuck State after 6s in Idle State
 	if actor.timer > 6:
-		print(actor.name, 
-		" IdleToStuck for: ", actor.timer)
+		print(actor.name, " IdleToStuck for: ", actor.timer)
 		return true
 	return false
 

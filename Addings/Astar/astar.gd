@@ -60,8 +60,6 @@ func get_used_static_cells() -> Array[Vector2]:
 				obst_static_cells_array.append(Vector2(x, y))
 			else:
 				free_static_cells_array.append(Vector2(x, y))
-	#Test this sht
-	#print(coords_array)
 	obst_static_cells = obst_static_cells_array
 	free_static_cells = free_static_cells_array
 	return obst_static_cells_array
