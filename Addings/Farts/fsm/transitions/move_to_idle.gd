@@ -18,8 +18,7 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 ## If the speed has decreased and the path length is less than 1
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
 	if (actor.velocity.length() < actor.speed / 2
-		and actor.astar_array.size() <= 1
-		):
+		and actor.astar_array.size() <= 1):
 		print(actor.name, " Reached target: ", actor.target, 
 		": now" if int(actor.timer) == 0 else ": %s" % int(actor.timer))
 		return true

@@ -17,8 +17,8 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 
 ## start FSMBT
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
-	## 10% on 3s idle
-	if randf() < 0.1 and actor.timer > 3:
+	## 10% on 3s idle NOT actor is leader
+	if !actor.leader and randf() < 0.1 and actor.timer > 3:
 		return true
 	return false
 

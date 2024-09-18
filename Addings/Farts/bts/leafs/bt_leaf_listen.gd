@@ -21,9 +21,8 @@ func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 		
 	##Else start listen in 2%3 ticks if not leader
 	#if (bt_tick % 3 < 2 and not actor.leader):
-	## Working for each tick BUT NOT leader
-	if not actor.leader:
-		start_actor_logic(timer, actor, blackboard)
+	## Working for each tick
+	start_actor_logic(timer, actor, blackboard)
 	
 	## Update ticker and exit with SUCCESS
 	bt_tick += 1

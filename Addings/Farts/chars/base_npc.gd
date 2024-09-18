@@ -195,8 +195,8 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		elif resize > 10:
 			if confirm_leader(body):
 				print (body.name, " CONFIRMED!!!")
-		elif resize > 5:
-			body.scale = Vector2(resize/5.0, resize/5.0)
+		elif resize > 1:
+			body.scale = Vector2(1 + resize/20.0, 1 + resize/20.0)
 		## Call attachable.execute()
 		var args: Dictionary
 		args.from = body
@@ -222,7 +222,7 @@ func confirm_leader(body: CharacterBody2D) -> bool:
 	body.scale = Vector2(2,2)
 	
 	print_debug (body, true)
-	body.set_as_leader(body, true)
+	set_as_leader(body, true)
 	return body.leader
 
 
@@ -239,6 +239,8 @@ func dismiss_leader(body: CharacterBody2D) -> void:
 func set_as_leader(body: CharacterBody2D, val: bool) -> void:
 	body.leader = val
 	body.find_child("Leader").visible = val
+	body.set_collision_layer_value(1, !val)
+	body.set_collision_mask_value(1, !val)
 	print_debug (body, val)
 	pass
 	
