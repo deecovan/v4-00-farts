@@ -610,13 +610,13 @@ autostart = true
 actor = NodePath("../../..")
 blackboard = ExtResource("3_x6n50")
 
-[node name="BTRandomSelector" type="Node" parent="FSM/FSMBT/Root"]
+[node name="BTSelector" type="Node" parent="FSM/FSMBT/Root"]
 script = ExtResource("16_nwklx")
 
-[node name="BTLSpeak" type="Node" parent="FSM/FSMBT/Root/BTRandomSelector"]
+[node name="BTLSpeak" type="Node" parent="FSM/FSMBT/Root/BTSelector"]
 script = ExtResource("17_exky8")
 
-[node name="BTLListen" type="Node" parent="FSM/FSMBT/Root/BTRandomSelector"]
+[node name="BTLListen" type="Node" parent="FSM/FSMBT/Root/BTSelector"]
 script = ExtResource("18_rcitu")
 
 [node name="FSMBTToIdle" type="Node" parent="FSM/FSMBT" node_paths=PackedStringArray("next_state")]
