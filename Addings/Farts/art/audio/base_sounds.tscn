@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4tpc7flvp8pe"]
+[gd_scene load_steps=15 format=3 uid="uid://c4tpc7flvp8pe"]
 
 [ext_resource type="AudioStream" uid="uid://bxfuueuatgnrc" path="res://Addings/Farts/art/audio/Fart's 0.wav" id="1_lm686"]
 [ext_resource type="AudioStream" uid="uid://c1q5133y0cgba" path="res://Addings/Farts/art/audio/Fart's 1.wav" id="2_vl182"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://da54jmwpyk2o8" path="res://Addings/Farts/art/audio/Fart's 7.wav" id="10_xks0k"]
 [ext_resource type="AudioStream" uid="uid://b1ojmvvub5885" path="res://Addings/Farts/art/audio/Fart's 8.wav" id="11_w1nma"]
 [ext_resource type="AudioStream" uid="uid://bh0jhgi43oi1w" path="res://Addings/Farts/art/audio/Fart's 9.wav" id="12_3n5l1"]
+[ext_resource type="Script" path="res://Addings/Farts/art/audio/base_sounds.gd" id="13_8xr16"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_7uccc"]
 shuffle = true
@@ -37,3 +38,4 @@ pitch_scale = 2.0
 attenuation = 0.6
 max_polyphony = 4
 panning_strength = 4.0
+script = ExtResource("13_8xr16")
