@@ -1,27 +1,34 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4tpc7flvp8pe"]
+[gd_scene load_steps=14 format=3 uid="uid://c4tpc7flvp8pe"]
 
-[ext_resource type="AudioStream" uid="uid://dnvbu7w7q2l7k" path="res://Addings/Farts/art/audio/chars/fart1-0.wav" id="1_k8352"]
-[ext_resource type="AudioStream" uid="uid://bk3gje6sglvkj" path="res://Addings/Farts/art/audio/chars/fart1-1.wav" id="2_337uy"]
-[ext_resource type="AudioStream" uid="uid://bp0w6a1oxjypx" path="res://Addings/Farts/art/audio/chars/fart1-2.wav" id="3_wohmc"]
-[ext_resource type="AudioStream" uid="uid://7c36fo777fml" path="res://Addings/Farts/art/audio/chars/fart1-3.wav" id="4_atiks"]
-[ext_resource type="AudioStream" uid="uid://dkje0e3oqsmga" path="res://Addings/Farts/art/audio/chars/fart1-4.wav" id="5_mlco0"]
-[ext_resource type="AudioStream" uid="uid://b5tgj0uy74uq1" path="res://Addings/Farts/art/audio/chars/fart1-5.wav" id="6_mf8li"]
-[ext_resource type="AudioStream" uid="uid://dyd6hj07j5y7o" path="res://Addings/Farts/art/audio/chars/fart1-6.wav" id="7_xamwu"]
-[ext_resource type="AudioStream" uid="uid://b6sg12aqkgy8m" path="res://Addings/Farts/art/audio/chars/fart1-7.wav" id="8_pbsgs"]
-[ext_resource type="Script" path="res://Addings/Farts/art/audio/parts/base_sounds.gd" id="9_ed3n0"]
+[ext_resource type="AudioStream" uid="uid://426dr8jvv6ej" path="res://Addings/Farts/art/audio/Fart's 0.wav" id="1_lm686"]
+[ext_resource type="AudioStream" uid="uid://bw4e1mpfpng68" path="res://Addings/Farts/art/audio/Fart's 1.wav" id="2_vl182"]
+[ext_resource type="AudioStream" uid="uid://bs8lxudnhwry2" path="res://Addings/Farts/art/audio/Fart's a.wav" id="3_c25i7"]
+[ext_resource type="AudioStream" uid="uid://cugu72uu2wsmx" path="res://Addings/Farts/art/audio/Fart's b.wav" id="4_4qs6h"]
+[ext_resource type="AudioStream" uid="uid://sw5yayiaei0d" path="res://Addings/Farts/art/audio/Fart's 2.wav" id="5_j02b3"]
+[ext_resource type="AudioStream" uid="uid://bmwbt2of3loqw" path="res://Addings/Farts/art/audio/Fart's 3.wav" id="6_o03t5"]
+[ext_resource type="AudioStream" uid="uid://bl5w8e78nfjbq" path="res://Addings/Farts/art/audio/Fart's 4.wav" id="7_lhtaw"]
+[ext_resource type="AudioStream" uid="uid://b0p5lkvd5sig6" path="res://Addings/Farts/art/audio/Fart's 5.wav" id="8_xv2n7"]
+[ext_resource type="AudioStream" uid="uid://mjooxywmff65" path="res://Addings/Farts/art/audio/Fart's 6.wav" id="9_wo777"]
+[ext_resource type="AudioStream" uid="uid://dabtpkrdqqh8g" path="res://Addings/Farts/art/audio/Fart's 7.wav" id="10_xks0k"]
+[ext_resource type="AudioStream" uid="uid://cbb6517nsq4nj" path="res://Addings/Farts/art/audio/Fart's 8.wav" id="11_w1nma"]
+[ext_resource type="AudioStream" uid="uid://bq0fw1lq73n23" path="res://Addings/Farts/art/audio/Fart's 9.wav" id="12_3n5l1"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_7uccc"]
 shuffle = true
 fade_time = 0.2
-stream_count = 8
-stream_0 = ExtResource("1_k8352")
-stream_1 = ExtResource("2_337uy")
-stream_2 = ExtResource("3_wohmc")
-stream_3 = ExtResource("4_atiks")
-stream_4 = ExtResource("5_mlco0")
-stream_5 = ExtResource("6_mf8li")
-stream_6 = ExtResource("7_xamwu")
-stream_7 = ExtResource("8_pbsgs")
+stream_count = 12
+stream_0 = ExtResource("1_lm686")
+stream_1 = ExtResource("2_vl182")
+stream_2 = ExtResource("5_j02b3")
+stream_3 = ExtResource("6_o03t5")
+stream_4 = ExtResource("7_lhtaw")
+stream_5 = ExtResource("8_xv2n7")
+stream_6 = ExtResource("9_wo777")
+stream_7 = ExtResource("10_xks0k")
+stream_8 = ExtResource("11_w1nma")
+stream_9 = ExtResource("12_3n5l1")
+stream_10 = ExtResource("3_c25i7")
+stream_11 = ExtResource("4_4qs6h")
 
 [node name="Sounds" type="AudioStreamPlayer2D"]
 stream = SubResource("AudioStreamPlaylist_7uccc")
@@ -30,4 +37,3 @@ pitch_scale = 2.0
 attenuation = 0.6
 max_polyphony = 4
 panning_strength = 4.0
-script = ExtResource("9_ed3n0")

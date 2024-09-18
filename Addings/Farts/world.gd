@@ -52,7 +52,7 @@ func init_npcs() -> void:
 			child.sounds = child.find_child("Sounds")
 			child.animations = child.find_child("Animations")
 			child.animations.play("Idle")
-			child.self_as_leader(false)
+			child.set_as_leader(child, false)
 			## Randomise position and target
 			child.set_random_position()
 			child.set_current_target(child.get_random_position())

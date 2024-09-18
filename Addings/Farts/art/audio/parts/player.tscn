@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://w5nuo6sp8cdy"]
 
-[ext_resource type="AudioStream" uid="uid://cd8qsmb1i72pk" path="res://Addings/Farts/art/audio/Eepy Boy Esalstique.wav" id="1_morma"]
+[ext_resource type="AudioStream" uid="uid://cd8qsmb1i72pk" path="res://Addings/Farts/art/audio/Eepy Boy Elastique.wav" id="1_norma"]
 
 [node name="Player" type="AudioStreamPlayer2D"]
-stream = ExtResource("1_morma")
+stream = ExtResource("1_norma")
 volume_db = -6.0
 autoplay = true
 max_polyphony = 4

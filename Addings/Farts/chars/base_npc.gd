@@ -171,23 +171,22 @@ func get_fsm_state(state_name: StringName) -> FSMState:
 
 
 func _on_sens_body_entered(body: Node2D) -> void:
-	if (
 	## @TODO need BT here:
 	## - if not Leader: hear to someone Speaking
 	## - else do something with someone's entered the sens area
-	not self.leader
+	if (not self.leader
 	and body.is_in_group("NPC") 
 	and body.animations.is_playing() 
 	and body.animations.current_animation == "Speak"):
 		print(name, " is hearing ", body.name, " speak ", body.color)
-		
+
 		var color_vector = diffuse_rand_color(self, body.color).normalized()
 		var color_amount = int(color_vector.length() * 10 + 5)
-		
+
 		body.lead_vector += color_vector * 4
 		print(body.name, " lead_vector is ", body.lead_vector, 
 		" (%s) !!!" % body.lead_vector.length())
-		
+
 		## Confirm or dismiss the Leader
 		if body.lead_vector.length() > 20:
 			dismiss_leader(body)
@@ -208,8 +207,8 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		## Print the answer result
 		if res != {}:
 			print(res)
-			
-			
+
+
 func confirm_leader(body: CharacterBody2D) -> bool:
 	if body.leader:
 		print(body.name, " NOT CONFIRMED!!! Already is the Leader")
@@ -218,24 +217,27 @@ func confirm_leader(body: CharacterBody2D) -> bool:
 		print(body.name, " NOT CONFIRMED!!! Already has the Leader")
 		return false
 	body.scale = Vector2(2,2)
-	body.leader = true
-	body.find_child("Leader").visible = true
+	
+	print_debug (body, true)
+	body.set_as_leader(body, true)
 	return body.leader
-	
-	
+
+
 func dismiss_leader(body: CharacterBody2D) -> void:
 	body.lead_vector = Vector3.ZERO
 	body.color = Color.LIGHT_SLATE_GRAY
 	body.scale = Vector2(1,1)
-	self_as_leader(false)
-	self.leader = false
-	self.find_child("Leader").visible = false
 	
-## WTF???
-func self_as_leader(val:bool) -> void:
-	self.leader = val
-	self.find_child("Leader").visible = val
-	print_debug (self, val)
+	print_debug (body, false)
+	set_as_leader(body, false)
+	pass
+
+
+func set_as_leader(body: CharacterBody2D, val: bool) -> void:
+	body.leader = val
+	body.find_child("Leader").visible = val
+	print_debug (body, val)
+	pass
 	
 	
 func find_leaders() -> int:
