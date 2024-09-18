@@ -81,7 +81,7 @@ func get_input(delta) -> Vector2:
 		position +=  normal * dexta + Vector2(
 			randi_range(-8,8),randi_range(-8,8))
 		velocity = Vector2.ZERO
-		reset_to_idle()
+		if not leader: reset_to_idle()
 		
 	return velocity_to
 
@@ -174,7 +174,7 @@ func _on_sens_body_entered(body: Node2D) -> void:
 	## @TODO need BT here:
 	## - if not Leader: hear to someone Speaking
 	## - else do something with someone's entered the sens area
-	if (not self.leader
+	if (not leader
 	and body.is_in_group("NPC") 
 	and body.animations.is_playing() 
 	and body.animations.current_animation == "Speak"):

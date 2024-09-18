@@ -19,8 +19,10 @@ func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	if timer == null or randf() > 0.5:
 		return BTStatus.FAILURE
 		
-	## Else start listen in 2%3 ticks if not leader
-	if (bt_tick % 3 < 2 and not actor.leader):
+	##Else start listen in 2%3 ticks if not leader
+	#if (bt_tick % 3 < 2 and not actor.leader):
+	## Working for each tick BUT NOT leader
+	if not actor.leader:
 		start_actor_logic(timer, actor, blackboard)
 	
 	## Update ticker and exit with SUCCESS
@@ -29,7 +31,7 @@ func tick(_delta: float, actor: Node, blackboard: Blackboard) -> BTStatus:
 	return BTStatus.SUCCESS
 	
 	
-## Working for each 1 sec (2 leafs in 2 seconds)
+## Working for each tick
 func start_actor_logic(_timer: float, actor: Node, _blackboard: Blackboard) -> void:
 	print (actor.name, " is Listening...")
 	## Now find is anyone's speaking and set as the target

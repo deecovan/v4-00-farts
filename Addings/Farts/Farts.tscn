@@ -42,3 +42,4 @@ tile_set = SubResource("TileSet_kegr3")
 script = ExtResource("5_jrhdq")
 
 [node name="Player" parent="World" instance=ExtResource("7_8tr8o")]
+volume_db = -9.0
