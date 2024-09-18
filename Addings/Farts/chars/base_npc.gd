@@ -183,17 +183,21 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		var color_vector = diffuse_rand_color(self, body.color).normalized()
 		var color_amount = int(color_vector.length() * 10 + 5)
 
-		body.lead_vector += color_vector * 4
+		body.lead_vector += color_vector * 5
+		var resize = body.lead_vector.length()
 		print(body.name, " lead_vector is ", body.lead_vector, 
-		" (%s) !!!" % body.lead_vector.length())
-
+		" (%s) !!!" % resize)
+		
 		## Confirm or dismiss the Leader
-		if body.lead_vector.length() > 20:
+		if resize > 20:
 			dismiss_leader(body)
 			print (body.name, " DISMISSED!!!")
-		elif body.lead_vector.length() > 10:
+		elif resize > 10:
 			if confirm_leader(body):
 				print (body.name, " CONFIRMED!!!")
+		elif resize > 5:
+			body.scale = Vector2(
+				resize/5, resize/5)
 		## Call attachable.execute()
 		var args: Dictionary
 		args.from = body
