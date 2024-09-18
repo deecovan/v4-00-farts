@@ -67,3 +67,4 @@ func _input(_event: InputEvent) -> void:
 		init_npcs()
 	if Input.is_action_just_pressed("Restart"):
 		get_tree().reload_current_scene()
+		
