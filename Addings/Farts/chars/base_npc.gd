@@ -184,7 +184,7 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		var color_amount = int(color_vector.length() * 10 + 5)
 
 		body.lead_vector += color_vector * 5
-		var resize = body.lead_vector.length()
+		var resize: float = body.lead_vector.length()
 		print(body.name, " lead_vector is ", body.lead_vector, 
 		" (%s) !!!" % resize)
 		
@@ -196,8 +196,7 @@ func _on_sens_body_entered(body: Node2D) -> void:
 			if confirm_leader(body):
 				print (body.name, " CONFIRMED!!!")
 		elif resize > 5:
-			body.scale = Vector2(
-				resize/5, resize/5)
+			body.scale = Vector2(resize/5.0, resize/5.0)
 		## Call attachable.execute()
 		var args: Dictionary
 		args.from = body
