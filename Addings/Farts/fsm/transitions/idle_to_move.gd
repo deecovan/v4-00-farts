@@ -19,11 +19,12 @@ func _on_transition(_delta: float, _actor: Node, _blackboard: Blackboard) -> voi
 func is_valid(actor: Node, _blackboard: Blackboard) -> bool:
 	if (actor.velocity.length() < actor.speed / 2 
 		and (
-			actor.leader and actor.timer > 9
+			actor.leader and actor.timer > 10
 		) or (
 			!actor.leader and actor.timer > 6 - randf() * 3
 		)):
 		## goes to Move State after 3..6s in Idle State
+		actor.timer = 0.0
 		return true
 	return false
 

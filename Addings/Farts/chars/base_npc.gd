@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var speed := 200.0 * 50 /Engine.physics_ticks_per_second
 @export var shift := 400.0 * 50 /Engine.physics_ticks_per_second
 @export var lead_vector := Vector3.ZERO
+@export var global_target := Vector2.ZERO
 @export var state : StringName
 
 
@@ -107,6 +108,17 @@ func set_current_target(new_target: Vector2) -> bool:
 	astar_array = get_static_astar(target)
 	return astar_array.size() > 0
 	
+func set_global_target(new_target: Vector2) -> bool:
+	if new_target != Vector2.ZERO:
+		global_target = new_target
+		target = new_target
+		astar_array = get_static_astar(new_target)
+		return astar_array.size() > 0
+	else: 
+		global_target = global_position
+		target = global_position
+		return false
+	
 
 func update_current_target() -> bool:
 	if target_obj is CharacterBody2D:
@@ -115,7 +127,13 @@ func update_current_target() -> bool:
 		return false
 	astar_array = get_static_astar(target)
 	if astar_array.size() <= 2:
-		print(name, " Reached target: ", target_obj.name, " in time: ",
+		var t: StringName
+		if target_obj.leader:
+			t = "Leader: "
+		else:
+			t = "Target: "
+		t += target_obj.name
+		print(name, " Reached ", t, " in time: ",
 		"now" if int(timer) == 0 else "%s" % int(timer))
 		target_obj = null
 		reset_to_state("Success")
@@ -181,7 +199,7 @@ func _on_sens_body_entered(body: Node2D) -> void:
 		print(name, " is hearing ", body.name, " speak ", body.color)
 
 		var color_vector = diffuse_rand_color(self, body.color).normalized()
-		var color_amount = int(color_vector.length() + 1)
+		var color_amount = int(color_vector.length() * 5 + 5)
 
 		body.lead_vector += color_vector * 2
 		var resize: float = body.lead_vector.length()
@@ -241,7 +259,6 @@ func set_as_leader(body: CharacterBody2D, val: bool) -> void:
 	body.find_child("Leader").visible = val
 	body.set_collision_layer_value(1, !val)
 	body.set_collision_mask_value(1, !val)
-	print_debug (body, val)
 	pass
 	
 	

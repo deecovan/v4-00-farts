@@ -9,7 +9,7 @@ extends Node2D
 
 func _ready() -> void:
 	## Instantiate NPC's
-	inst_npcs(5)
+	inst_npcs(10)
 	
 	astar.global_center = get_viewport().get_visible_rect().get_center()
 	astar.static_tilemap_layer = statics

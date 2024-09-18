@@ -14,18 +14,22 @@ var move_timer := 0.0
 ## Executes after the state is entered.
 func _on_enter(actor: Node, _blackboard: Blackboard) -> void:
 	#### Continue from BaseNPC script	
-	if actor.velocity.length() < 200 and actor.timer > 3:
-		if !actor.update_current_target():
+	if actor.velocity.length() < 200:
+		if actor.leader:
+			var res = actor.set_global_target(actor.get_random_position())
+			while !res:
+				res = actor.set_global_target(actor.get_random_position())
+		elif !actor.update_current_target():
 			actor.set_current_target(actor.get_random_position())
 		actor.animations.play("Move")
-		actor.timer = 0.0
 
 
 ## Executes every process call, if the state is active.
 func _on_update(delta: float, actor: Node, _blackboard: Blackboard) -> void:
 	move_timer += delta
-	if move_timer > 0.5:
-		if actor.update_current_target():
+	if move_timer > 0.1:
+		if (actor.update_current_target()
+		or actor.leader and actor.global_target != Vector2.ZERO):
 			actor.animations.play("Target")
 		move_timer = 0.0
 	
